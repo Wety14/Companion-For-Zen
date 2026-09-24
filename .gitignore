@@ -1,0 +1,25 @@
+# Xcode
+.DS_Store
+*/build/*
+build/
+DerivedData/
+*.xcuserstate
+project.xcworkspace/xcuserdata/
+*.xcuserdatad
+xcuserdata/
+*.xccheckout
+*.moved-aside
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# SPM
+.build/
+
+# Fastlane / Temporary
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+*.swp
+*~

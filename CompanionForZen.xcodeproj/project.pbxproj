@@ -1,0 +1,528 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		070A12758D0345BD8CD1A4B6 /* ZenTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D5FC1567024B6497CADB90 /* ZenTheme.swift */; };
+		0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BC7D46EAD440DA23490A8 /* DownloadService.swift */; };
+		10ABFE7595724FFC931F29F4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CED939C4405891D21C64 /* HistoryView.swift */; };
+		28EF8A277D9F4D67A55D7112 /* FirefoxSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */; };
+		2C8CC842A7654EB99C133074 /* CompanionForZenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4320325A898F4382915BDFE4 /* CompanionForZenApp.swift */; };
+		3980204B5A504EB493291688 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD18DB066580490EB1376D88 /* Tab.swift */; };
+		3A83F9C8139647AB82BFA857 /* ArchivedTabsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7051AE609F462899623CFF /* ArchivedTabsView.swift */; };
+		424E163DA5ED408A95188353 /* BookmarksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E758ABFDD614B8AA7269536 /* BookmarksView.swift */; };
+		49B3C204C5B1418B8280B4DD /* WebViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */; };
+		49C3151E508A45B3AAB72A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F74D48A60E3B47288443107E /* Assets.xcassets */; };
+		50DD6DD7882643AC95C8482B /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0E32CC6D42447908A91A5C5 /* HistoryService.swift */; };
+		55CB0C6D177046049FD6EC82 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49AD21224A164C41B63ED57F /* AppSettings.swift */; };
+		6202CB3B24BD4CED8F09FAA5 /* DownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAACC3BF5E8464D85A4BD7F /* DownloadItem.swift */; };
+		6FF4BDE5FD324EC1AA86622E /* ReaderModeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33351818D988495986C9CB87 /* ReaderModeService.swift */; };
+		7612697AE7A440C3B0C8A01D /* SpaceSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2761AE6308148E480D01A20 /* SpaceSelectorView.swift */; };
+		78281FB6621C4B03814112E3 /* ZenLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF70249273264FBC809F57EF /* ZenLogoView.swift */; };
+		7864D335DD9E4128BE3E9AC9 /* TabCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B58D1ED514A03995E8352 /* TabCardView.swift */; };
+		7D51C73022984F3DB377FADB /* AdBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57B1D71A54B459C87C4A24D /* AdBlockService.swift */; };
+		7F99A92E42954386AEB460FB /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0C046618641579CAFCC2A /* TranslationService.swift */; };
+		8822E08B4C12449A86F38E98 /* TabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEECB76617F4895A3E8DB31 /* TabDrawerView.swift */; };
+		9A5B233712344D479A7B94D6 /* LiquidGlassModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0E63B9B2445F3B00B5F79 /* LiquidGlassModifier.swift */; };
+		9EFA8A5F68604CE78C591A51 /* TabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */; };
+		A0C8D597F81B4123AE31A00D /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44782C4029E4BDC81363FB8 /* AppLanguage.swift */; };
+		ADF297E1E3804E1EBBF0795E /* SearchOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F035A2425FC04B9C9F5E8308 /* SearchOverlayView.swift */; };
+		B35AF55C64444C17A1CC0D4A /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA0B47E5394ABD9328FC81 /* SearchEngine.swift */; };
+		B69A259540F448D18387417F /* DownloadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB392E8F306F4566A284A2BC /* DownloadsView.swift */; };
+		BC35B6D1F9DC4C2795E88189 /* BrowserContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0A0967E2D41B58B5536DE /* BrowserContainerView.swift */; };
+		BFB8BC07BA3C44A1B8B4B0D2 /* WebToolsOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCED9C9B251B4DA0B620397C /* WebToolsOverlayView.swift */; };
+		C3B6BBB4DC4143DD9EC5CCA9 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7190F48FEA4E1A80FA8596 /* Space.swift */; };
+		C5382F62A33A47149B57F502 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8DD3E388042A28E5173C3 /* AppTheme.swift */; };
+		C633DD526C1141DB8C9CE269 /* HandoffService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD032923254C32BCCDE10A /* HandoffService.swift */; };
+		CE5C5F95306560C40035FB50 /* SearchSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */; };
+		CFC7D1807F92477B924F0030 /* SearchEnginePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584AA23460447B6996513FE /* SearchEnginePickerView.swift */; };
+		D2D447B09E3F4345A4742FA7 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325214C2DEE4DC6A5C9AD29 /* IconPickerView.swift */; };
+		E5ADEE797BDE47619A51F2A3 /* FirefoxSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */; };
+		E716FDB530774D0EAD9914A9 /* HistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A0ACAFA64F46E3A5593947 /* HistoryEntry.swift */; };
+		F1ABBC34C5704FAA8C1581D2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6234C732C4C045CEBB175608 /* SettingsView.swift */; };
+		FBAF7F3F1A284F13812B7BFC /* BottomOmnibarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E189F54C394DF38153B129 /* BottomOmnibarView.swift */; };
+		FF17AA5B47854C3799172962 /* ReaderModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderModeView.swift; sourceTree = "<group>"; };
+		0570A7386072424DAFA049C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManager.swift; sourceTree = "<group>"; };
+		0E758ABFDD614B8AA7269536 /* BookmarksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksView.swift; sourceTree = "<group>"; };
+		0FAD032923254C32BCCDE10A /* HandoffService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandoffService.swift; sourceTree = "<group>"; };
+		124743E05EEE4273961E3991 /* Zen-Color-Coral.svg */ = {isa = PBXFileReference; lastKnownFileType = image.svg; path = "Zen-Color-Coral.svg"; sourceTree = "<group>"; };
+		1A7190F48FEA4E1A80FA8596 /* Space.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space.swift; sourceTree = "<group>"; };
+		1EAACC3BF5E8464D85A4BD7F /* DownloadItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadItem.swift; sourceTree = "<group>"; };
+		21D5FC1567024B6497CADB90 /* ZenTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenTheme.swift; sourceTree = "<group>"; };
+		228B58D1ED514A03995E8352 /* TabCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCardView.swift; sourceTree = "<group>"; };
+		33351818D988495986C9CB87 /* ReaderModeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderModeService.swift; sourceTree = "<group>"; };
+		35E189F54C394DF38153B129 /* BottomOmnibarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOmnibarView.swift; sourceTree = "<group>"; };
+		3EEECB76617F4895A3E8DB31 /* TabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDrawerView.swift; sourceTree = "<group>"; };
+		4320325A898F4382915BDFE4 /* CompanionForZenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionForZenApp.swift; sourceTree = "<group>"; };
+		49AD21224A164C41B63ED57F /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		6234C732C4C045CEBB175608 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		79CA0B47E5394ABD9328FC81 /* SearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
+		8C7051AE609F462899623CFF /* ArchivedTabsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivedTabsView.swift; sourceTree = "<group>"; };
+		9325214C2DEE4DC6A5C9AD29 /* IconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
+		9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
+		9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefoxSyncView.swift; sourceTree = "<group>"; };
+		A97BC7D46EAD440DA23490A8 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
+		AF80B10D77004FD0AF5FB95F /* Zen-Color-Twilight.svg */ = {isa = PBXFileReference; lastKnownFileType = image.svg; path = "Zen-Color-Twilight.svg"; sourceTree = "<group>"; };
+		B5D1CED939C4405891D21C64 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefoxSyncService.swift; sourceTree = "<group>"; };
+		BB392E8F306F4566A284A2BC /* DownloadsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadsView.swift; sourceTree = "<group>"; };
+		C44782C4029E4BDC81363FB8 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
+		CCD0A0967E2D41B58B5536DE /* BrowserContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserContainerView.swift; sourceTree = "<group>"; };
+		CCED9C9B251B4DA0B620397C /* WebToolsOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebToolsOverlayView.swift; sourceTree = "<group>"; };
+		CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionService.swift; sourceTree = "<group>"; };
+		D57B1D71A54B459C87C4A24D /* AdBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBlockService.swift; sourceTree = "<group>"; };
+		D5A0ACAFA64F46E3A5593947 /* HistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntry.swift; sourceTree = "<group>"; };
+		D8F0C046618641579CAFCC2A /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
+		DD18DB066580490EB1376D88 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		DF70249273264FBC809F57EF /* ZenLogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZenLogoView.swift; sourceTree = "<group>"; };
+		DFDDCF4F78C64B13B6741D40 /* Zen-Color-Dark.svg */ = {isa = PBXFileReference; lastKnownFileType = image.svg; path = "Zen-Color-Dark.svg"; sourceTree = "<group>"; };
+		E0E32CC6D42447908A91A5C5 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		E4C0E63B9B2445F3B00B5F79 /* LiquidGlassModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiquidGlassModifier.swift; sourceTree = "<group>"; };
+		E584AA23460447B6996513FE /* SearchEnginePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEnginePickerView.swift; sourceTree = "<group>"; };
+		F035A2425FC04B9C9F5E8308 /* SearchOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOverlayView.swift; sourceTree = "<group>"; };
+		F1D8DD3E388042A28E5173C3 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		F2761AE6308148E480D01A20 /* SpaceSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectorView.swift; sourceTree = "<group>"; };
+		F74D48A60E3B47288443107E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FE77B7E0B37342A8A0495F5C /* CompanionForZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CompanionForZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0B3741FA58DC493D92A52818 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4320325A898F4382915BDFE4 /* CompanionForZenApp.swift */,
+				0570A7386072424DAFA049C0 /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		0D47F3789EFE4A8595635FCA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49AD21224A164C41B63ED57F /* AppSettings.swift */,
+				F1D8DD3E388042A28E5173C3 /* AppTheme.swift */,
+				1EAACC3BF5E8464D85A4BD7F /* DownloadItem.swift */,
+				D5A0ACAFA64F46E3A5593947 /* HistoryEntry.swift */,
+				79CA0B47E5394ABD9328FC81 /* SearchEngine.swift */,
+				1A7190F48FEA4E1A80FA8596 /* Space.swift */,
+				DD18DB066580490EB1376D88 /* Tab.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		2E543848C8D04CF08E2D64E2 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				C44782C4029E4BDC81363FB8 /* AppLanguage.swift */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		2F7E10F4F7934AB79EC69D52 /* Downloads */ = {
+			isa = PBXGroup;
+			children = (
+				BB392E8F306F4566A284A2BC /* DownloadsView.swift */,
+			);
+			path = Downloads;
+			sourceTree = "<group>";
+		};
+		39CE01FB5D0641F1AFB0FFE9 /* Sync */ = {
+			isa = PBXGroup;
+			children = (
+				9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */,
+			);
+			path = Sync;
+			sourceTree = "<group>";
+		};
+		5214D9E2A90E45B8985901E5 /* CompanionForZen */ = {
+			isa = PBXGroup;
+			children = (
+				0B3741FA58DC493D92A52818 /* App */,
+				B35135EF33E44F7283D09AFC /* Assets */,
+				633605E6530042C7A96C438D /* Core */,
+				B41AC8D850784BC0BCA42348 /* UI */,
+			);
+			path = CompanionForZen;
+			sourceTree = "<group>";
+		};
+		629C2485DC52480A8DF5CDAD /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				E4C0E63B9B2445F3B00B5F79 /* LiquidGlassModifier.swift */,
+				DF70249273264FBC809F57EF /* ZenLogoView.swift */,
+				21D5FC1567024B6497CADB90 /* ZenTheme.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		633605E6530042C7A96C438D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2E543848C8D04CF08E2D64E2 /* Localization */,
+				0D47F3789EFE4A8595635FCA /* Models */,
+				EFDCC72848544608BE158795 /* Services */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		71E786C75DB14FE3A76CAEB2 /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				8C7051AE609F462899623CFF /* ArchivedTabsView.swift */,
+				F2761AE6308148E480D01A20 /* SpaceSelectorView.swift */,
+				228B58D1ED514A03995E8352 /* TabCardView.swift */,
+				3EEECB76617F4895A3E8DB31 /* TabDrawerView.swift */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		72DD04E44A4A43278F75E387 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9325214C2DEE4DC6A5C9AD29 /* IconPickerView.swift */,
+				E584AA23460447B6996513FE /* SearchEnginePickerView.swift */,
+				6234C732C4C045CEBB175608 /* SettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		B35135EF33E44F7283D09AFC /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				F74D48A60E3B47288443107E /* Assets.xcassets */,
+				F8DD33546A1649DDAB4E2FEC /* ZenLogos */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		B41AC8D850784BC0BCA42348 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				D389011141B04D60A9E7E4C0 /* Bookmarks */,
+				E671E3B5469F4400AA5BC9B3 /* Browser */,
+				629C2485DC52480A8DF5CDAD /* DesignSystem */,
+				2F7E10F4F7934AB79EC69D52 /* Downloads */,
+				C71B93B4C7DF420A84E5A8D8 /* History */,
+				72DD04E44A4A43278F75E387 /* Settings */,
+				39CE01FB5D0641F1AFB0FFE9 /* Sync */,
+				71E786C75DB14FE3A76CAEB2 /* Tabs */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		C71B93B4C7DF420A84E5A8D8 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				B5D1CED939C4405891D21C64 /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		CF33B269321048448B337474 = {
+			isa = PBXGroup;
+			children = (
+				5214D9E2A90E45B8985901E5 /* CompanionForZen */,
+				D4EEBB57F7974E84806CA701 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D389011141B04D60A9E7E4C0 /* Bookmarks */ = {
+			isa = PBXGroup;
+			children = (
+				0E758ABFDD614B8AA7269536 /* BookmarksView.swift */,
+			);
+			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		D4EEBB57F7974E84806CA701 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FE77B7E0B37342A8A0495F5C /* CompanionForZen.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E671E3B5469F4400AA5BC9B3 /* Browser */ = {
+			isa = PBXGroup;
+			children = (
+				35E189F54C394DF38153B129 /* BottomOmnibarView.swift */,
+				CCD0A0967E2D41B58B5536DE /* BrowserContainerView.swift */,
+				00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */,
+				F035A2425FC04B9C9F5E8308 /* SearchOverlayView.swift */,
+				CCED9C9B251B4DA0B620397C /* WebToolsOverlayView.swift */,
+			);
+			path = Browser;
+			sourceTree = "<group>";
+		};
+		EFDCC72848544608BE158795 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D57B1D71A54B459C87C4A24D /* AdBlockService.swift */,
+				A97BC7D46EAD440DA23490A8 /* DownloadService.swift */,
+				B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */,
+				0FAD032923254C32BCCDE10A /* HandoffService.swift */,
+				E0E32CC6D42447908A91A5C5 /* HistoryService.swift */,
+				33351818D988495986C9CB87 /* ReaderModeService.swift */,
+				0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */,
+				D8F0C046618641579CAFCC2A /* TranslationService.swift */,
+				9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */,
+				CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F8DD33546A1649DDAB4E2FEC /* ZenLogos */ = {
+			isa = PBXGroup;
+			children = (
+				124743E05EEE4273961E3991 /* Zen-Color-Coral.svg */,
+				DFDDCF4F78C64B13B6741D40 /* Zen-Color-Dark.svg */,
+				AF80B10D77004FD0AF5FB95F /* Zen-Color-Twilight.svg */,
+			);
+			path = ZenLogos;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ED2F8891308F4EE6B4C7E1AB /* CompanionForZen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F442D6B190814E0DB3AC9630 /* Build configuration list for PBXNativeTarget "CompanionForZen" */;
+			buildPhases = (
+				A4BCFF03113240EE9D3C31A8 /* Sources */,
+				583B92C0E6454A9BA7E0C572 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CompanionForZen;
+			productName = CompanionForZen;
+			productReference = FE77B7E0B37342A8A0495F5C /* CompanionForZen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		33E5779186534A7DA23D4EB5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					ED2F8891308F4EE6B4C7E1AB = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 43EE2F609C554B4680E6059C /* Build configuration list for PBXProject "CompanionForZen" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CF33B269321048448B337474;
+			productRefGroup = D4EEBB57F7974E84806CA701 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ED2F8891308F4EE6B4C7E1AB /* CompanionForZen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		583B92C0E6454A9BA7E0C572 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C3151E508A45B3AAB72A16 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A4BCFF03113240EE9D3C31A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C8CC842A7654EB99C133074 /* CompanionForZenApp.swift in Sources */,
+				A0C8D597F81B4123AE31A00D /* AppLanguage.swift in Sources */,
+				55CB0C6D177046049FD6EC82 /* AppSettings.swift in Sources */,
+				CE5C5F95306560C40035FB50 /* SearchSuggestionService.swift in Sources */,
+				C5382F62A33A47149B57F502 /* AppTheme.swift in Sources */,
+				6202CB3B24BD4CED8F09FAA5 /* DownloadItem.swift in Sources */,
+				E716FDB530774D0EAD9914A9 /* HistoryEntry.swift in Sources */,
+				B35AF55C64444C17A1CC0D4A /* SearchEngine.swift in Sources */,
+				C3B6BBB4DC4143DD9EC5CCA9 /* Space.swift in Sources */,
+				3980204B5A504EB493291688 /* Tab.swift in Sources */,
+				7D51C73022984F3DB377FADB /* AdBlockService.swift in Sources */,
+				0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */,
+				28EF8A277D9F4D67A55D7112 /* FirefoxSyncService.swift in Sources */,
+				C633DD526C1141DB8C9CE269 /* HandoffService.swift in Sources */,
+				50DD6DD7882643AC95C8482B /* HistoryService.swift in Sources */,
+				6FF4BDE5FD324EC1AA86622E /* ReaderModeService.swift in Sources */,
+				9EFA8A5F68604CE78C591A51 /* TabManager.swift in Sources */,
+				7F99A92E42954386AEB460FB /* TranslationService.swift in Sources */,
+				49B3C204C5B1418B8280B4DD /* WebViewContainer.swift in Sources */,
+				424E163DA5ED408A95188353 /* BookmarksView.swift in Sources */,
+				FBAF7F3F1A284F13812B7BFC /* BottomOmnibarView.swift in Sources */,
+				BC35B6D1F9DC4C2795E88189 /* BrowserContainerView.swift in Sources */,
+				FF17AA5B47854C3799172962 /* ReaderModeView.swift in Sources */,
+				ADF297E1E3804E1EBBF0795E /* SearchOverlayView.swift in Sources */,
+				BFB8BC07BA3C44A1B8B4B0D2 /* WebToolsOverlayView.swift in Sources */,
+				9A5B233712344D479A7B94D6 /* LiquidGlassModifier.swift in Sources */,
+				78281FB6621C4B03814112E3 /* ZenLogoView.swift in Sources */,
+				070A12758D0345BD8CD1A4B6 /* ZenTheme.swift in Sources */,
+				B69A259540F448D18387417F /* DownloadsView.swift in Sources */,
+				10ABFE7595724FFC931F29F4 /* HistoryView.swift in Sources */,
+				D2D447B09E3F4345A4742FA7 /* IconPickerView.swift in Sources */,
+				CFC7D1807F92477B924F0030 /* SearchEnginePickerView.swift in Sources */,
+				F1ABBC34C5704FAA8C1581D2 /* SettingsView.swift in Sources */,
+				E5ADEE797BDE47619A51F2A3 /* FirefoxSyncView.swift in Sources */,
+				3A83F9C8139647AB82BFA857 /* ArchivedTabsView.swift in Sources */,
+				7612697AE7A440C3B0C8A01D /* SpaceSelectorView.swift in Sources */,
+				7864D335DD9E4128BE3E9AC9 /* TabCardView.swift in Sources */,
+				8822E08B4C12449A86F38E98 /* TabDrawerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2CFD157955564882BB4206D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3DE9D7DCBEF84EB5AA792D1F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = GN2JPP97NM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CompanionForZen/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.zenbrowser.companion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		55A9AC1DBCE44B88A1882604 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = GN2JPP97NM;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = CompanionForZen/App/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = app.zenbrowser.companion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A57ACE7164C74BCBA2719FA9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		43EE2F609C554B4680E6059C /* Build configuration list for PBXProject "CompanionForZen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CFD157955564882BB4206D6 /* Debug */,
+				A57ACE7164C74BCBA2719FA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F442D6B190814E0DB3AC9630 /* Build configuration list for PBXNativeTarget "CompanionForZen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55A9AC1DBCE44B88A1882604 /* Debug */,
+				3DE9D7DCBEF84EB5AA792D1F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 33E5779186534A7DA23D4EB5 /* Project object */;
+}
