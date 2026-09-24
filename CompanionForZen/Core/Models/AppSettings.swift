@@ -87,7 +87,7 @@ public struct AppSettings: Codable, Equatable {
         contentBlocker: ContentBlockerSettings = ContentBlockerSettings(),
         searchConfig: SearchEngineConfig = SearchEngineConfig(),
         themePreset: ZenThemePreset = .twilight,
-        selectedIcon: AppIconOption = .twilight,
+        selectedIcon: AppIconOption = .primary,
         readerSettings: ReaderSettings = ReaderSettings(),
         requestDesktopSiteByDefault: Bool = false,
         languageCode: String = "fr"

@@ -3,7 +3,7 @@ import SwiftUI
 /// App Icon selection view allowing users to pick between official Zen icon themes.
 public struct IconPickerView: View {
     @ObservedObject var themeManager = ZenThemeManager.shared
-    @State private var selectedIcon: AppIconOption = .twilight
+    @ObservedObject var iconManager = AppIconManager.shared
     
     private let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -18,12 +18,12 @@ public struct IconPickerView: View {
                     ZStack {
                         // Ambient glow
                         RoundedRectangle(cornerRadius: 22, style: .continuous)
-                            .fill(selectedIcon.iconColor.opacity(0.35))
+                            .fill(iconManager.currentIcon.iconColor.opacity(0.35))
                             .frame(width: 86, height: 86)
                             .blur(radius: 14)
                         
                         // App Icon render
-                        iconImage(for: selectedIcon, size: 84, cornerRadius: 20)
+                        iconImage(for: iconManager.currentIcon, size: 84, cornerRadius: 20)
                             .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 5)
                     }
                     .padding(.top, 8)
@@ -33,7 +33,7 @@ public struct IconPickerView: View {
                             .font(.system(size: 13, weight: .medium))
                             .foregroundColor(.primary)
                         
-                        Text(selectedIcon.displayName)
+                        Text(iconManager.currentIcon.displayName)
                             .font(.system(size: 11, weight: .semibold))
                             .foregroundColor(themeManager.accentColor)
                     }
@@ -46,7 +46,7 @@ public struct IconPickerView: View {
                 )
                 .padding(.horizontal, 16)
                 
-                // 2x2 Grid of the 4 new official icons
+                // 2x2 Grid of the official icons
                 VStack(alignment: .leading, spacing: 14) {
                     Text("Icônes disponibles")
                         .font(.headline)
@@ -54,7 +54,7 @@ public struct IconPickerView: View {
                         .padding(.horizontal, 20)
                     
                     LazyVGrid(columns: columns, spacing: 16) {
-                        ForEach(AppIconOption.allCases) { option in
+                        ForEach(AppIconManager.AppIcon.allCases) { option in
                             iconCard(for: option)
                         }
                     }
@@ -86,23 +86,19 @@ public struct IconPickerView: View {
         .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
         .navigationTitle(tr("app_icon"))
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            loadCurrentIcon()
-        }
     }
     
     // MARK: - Subviews
     
     @ViewBuilder
-    private func iconCard(for option: AppIconOption) -> some View {
-        let isSelected = selectedIcon == option
+    private func iconCard(for option: AppIconManager.AppIcon) -> some View {
+        let isSelected = iconManager.currentIcon == option
         
         Button(action: {
             Haptics.selection()
             withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
-                selectedIcon = option
+                iconManager.setIcon(option)
             }
-            setAppIcon(option)
         }) {
             VStack(spacing: 12) {
                 ZStack(alignment: .topTrailing) {
@@ -149,31 +145,20 @@ public struct IconPickerView: View {
     }
     
     @ViewBuilder
-    private func iconImage(for option: AppIconOption, size: CGFloat, cornerRadius: CGFloat) -> some View {
-        Image(option.previewImageName)
-            .resizable()
-            .scaledToFit()
-            .frame(width: size, height: size)
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-    }
-    
-    // MARK: - Actions
-    
-    private func loadCurrentIcon() {
-        let current = UIApplication.shared.alternateIconName
-        if let current = current, let match = AppIconOption(rawValue: current) {
-            selectedIcon = match
+    private func iconImage(for option: AppIconManager.AppIcon, size: CGFloat, cornerRadius: CGFloat) -> some View {
+        if let uiImage = UIImage(named: option.previewImageName) {
+            Image(uiImage: uiImage)
+                .resizable()
+                .scaledToFit()
+                .frame(width: size, height: size)
+                .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
         } else {
-            selectedIcon = .twilight
-        }
-    }
-    
-    private func setAppIcon(_ option: AppIconOption) {
-        guard UIApplication.shared.supportsAlternateIcons else { return }
-        UIApplication.shared.setAlternateIconName(option.alternateIconName) { error in
-            if let error = error {
-                print("Error setting icon: \(error.localizedDescription)")
-            }
+            ZenLogoView(
+                size: size,
+                showBackground: true,
+                backgroundColor: option.iconColor,
+                ringColor: option.ringColor
+            )
         }
     }
 }

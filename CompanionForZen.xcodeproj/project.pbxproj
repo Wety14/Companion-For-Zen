@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* AppIconManager.swift */; };
 		070A12758D0345BD8CD1A4B6 /* ZenTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D5FC1567024B6497CADB90 /* ZenTheme.swift */; };
 		0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BC7D46EAD440DA23490A8 /* DownloadService.swift */; };
 		10ABFE7595724FFC931F29F4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CED939C4405891D21C64 /* HistoryView.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D4E5F60002 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderModeView.swift; sourceTree = "<group>"; };
 		0570A7386072424DAFA049C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManager.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 			isa = PBXGroup;
 			children = (
 				D57B1D71A54B459C87C4A24D /* AdBlockService.swift */,
+								A1B2C3D4E5F60002 /* AppIconManager.swift */,
 				A97BC7D46EAD440DA23490A8 /* DownloadService.swift */,
 				B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */,
 				0FAD032923254C32BCCDE10A /* HandoffService.swift */,
@@ -367,6 +370,7 @@
 				B35AF55C64444C17A1CC0D4A /* SearchEngine.swift in Sources */,
 				C3B6BBB4DC4143DD9EC5CCA9 /* Space.swift in Sources */,
 				3980204B5A504EB493291688 /* Tab.swift in Sources */,
+								A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */,
 				7D51C73022984F3DB377FADB /* AdBlockService.swift in Sources */,
 				0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */,
 				28EF8A277D9F4D67A55D7112 /* FirefoxSyncService.swift in Sources */,

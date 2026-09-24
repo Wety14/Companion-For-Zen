@@ -6,6 +6,19 @@ Toutes les modifications notables apportées à ce projet sont documentées dans
 
 ## [Non publié] - 2026-09-24
 
+### Ajouté
+- **Gestionnaire d'icônes `AppIconManager` (`AppIconManager.swift`)** :
+  - Création du gestionnaire dédié `@MainActor final class AppIconManager: ObservableObject` conforme au modèle fourni.
+  - Définition de l'enum `AppIcon` mappée directement sur les icônes des Assets :
+    - `.primary = "AppIcon"` (Zen Coral officiel, icône par défaut passant `nil` à `setAlternateIconName`)
+    - `.dark = "DarkIcon"` (Zen Dark)
+    - `.retro = "RetroIcon"` (Zen Retro)
+    - `.twilight = "TwilightIcon"` (Zen Twilight)
+  - Prise en charge native de `UIApplication.shared.supportsAlternateIcons` et mise à jour dynamique de `currentIcon`.
+  - Intégration dans `IconPickerView` avec synchronisation en direct du choix d'icône.
+  - Configuration de `CFBundleAlternateIcons` dans `Info.plist` pour `DarkIcon`, `RetroIcon` et `TwilightIcon`.
+  - Respect strict des dossiers d'icônes existants dans `Assets.xcassets` (aucun fichier d'icône modifié ou écrasé).
+
 ### Corrigé
 - **Bascule immédiate du thème clair / sombre (`ZenTheme.swift`, `BrowserContainerView.swift`, `WebToolsOverlayView.swift`)** :
   - **Correction du blocage de thème par la couleur de page web** : Dans `BrowserContainerView`, la directive `.preferredColorScheme` écrasait le thème utilisateur en forçant `.light` dès qu'une page web chargée avait un fond clair (`isPageColorLight == true`). Cela bloquait l'application en mode clair jusqu'au redémarrage de l'app.
@@ -33,19 +46,6 @@ Toutes les modifications notables apportées à ce projet sont documentées dans
   - Intégration du framework natif Apple Neural Translation (iOS 18+).
   - Ajout de la boîte de dialogue explicative d'autorisation locale avec les options : *Autoriser*, *Toujours autoriser* (mise en avant), *Refuser*.
   - Ajout du réglage « Toujours autoriser la traduction locale » dans les paramètres de l'application.
-
-### Ajouté
-- **Nouveau sélecteur d'icônes officielles Zen (`IconPickerView.swift`)** :
-  - Intégration des 4 nouvelles icônes officielles créées à partir des paquets `.icon` de `Assets/ZenLogos` :
-    - **Zen Twilight** (`TwilightIcon.icon`) : Bleu classique officiel (icône primaire par défaut).
-    - **Zen Coral** (`CoralIcon.icon`) : Teinte corail dégradée éclatante.
-    - **Zen Dark** (`DarkIcon.icon`) : Noir profond épuré.
-    - **Zen Retro** (`RetroIcon.icon`) : Ambiance rétro violet néon & or vintage.
-  - Nouvelle interface graphique en grille (2x2) avec prévisualisation en direct de l'icône sur l'écran d'accueil iOS (carte springboard avec effet de halo et ombre portée).
-  - Rendu haute fidélité natif des icônes dans les cartes avec indicateur de sélection animé et retour haptique instantané.
-  - Génération des ensembles d'icônes 1024x1024 (`AppIcon.appiconset`, `AppIcon-Twilight`, `AppIcon-Coral`, `AppIcon-Dark`, `AppIcon-Retro`) et des prévisualisations in-app (`Preview-Twilight`, `Preview-Coral`, `Preview-Dark`, `Preview-Retro`).
-  - Déclaration des 4 icônes alternatives dans `Info.plist` (`CFBundleAlternateIcons`).
-  - Suppression de l'ancien système (anciens doublons, icône Frost et Retrowave obsolètes).
 
 ---
 

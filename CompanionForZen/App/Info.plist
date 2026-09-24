@@ -85,38 +85,29 @@
 		</dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>AppIcon-Coral</key>
+			<key>DarkIcon</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>AppIcon-Coral</string>
+					<string>DarkIcon</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>AppIcon-Dark</key>
+			<key>RetroIcon</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>AppIcon-Dark</string>
+					<string>RetroIcon</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>AppIcon-Twilight</key>
+			<key>TwilightIcon</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>AppIcon-Twilight</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-			<key>AppIcon-Retro</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AppIcon-Retro</string>
+					<string>TwilightIcon</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
