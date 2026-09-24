@@ -378,11 +378,7 @@ public struct BrowserContainerView: View {
                 loadURLTrigger = incomingURL
             }
         }
-        .preferredColorScheme(
-            showingSearchOverlay
-                ? themeManager.colorScheme
-                : (isPageColorLight ? .light : themeManager.colorScheme)
-        )
+        .preferredColorScheme(themeManager.colorScheme)
         .applyWebTranslation(configuration: $translationConfig, webViewProvider: {
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) ?? windowScene.windows.first else { return nil }

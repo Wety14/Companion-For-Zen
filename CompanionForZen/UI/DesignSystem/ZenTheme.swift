@@ -48,6 +48,7 @@ public final class ZenThemeManager: ObservableObject {
         didSet {
             UserDefaults.standard.set(themeMode.rawValue, forKey: "zen_theme_mode")
             updateKeyboardAppearance()
+            applyTheme()
         }
     }
     
@@ -81,6 +82,28 @@ public final class ZenThemeManager: ObservableObject {
             self.themeMode = .automatic
         }
         updateKeyboardAppearance()
+        applyTheme()
+    }
+    
+    public func applyTheme() {
+        let style: UIUserInterfaceStyle
+        switch themeMode {
+        case .automatic:
+            style = .unspecified
+        case .light:
+            style = .light
+        case .dark:
+            style = .dark
+        }
+        
+        DispatchQueue.main.async {
+            for scene in UIApplication.shared.connectedScenes {
+                guard let windowScene = scene as? UIWindowScene else { continue }
+                for window in windowScene.windows {
+                    window.overrideUserInterfaceStyle = style
+                }
+            }
+        }
     }
     
     public func updateKeyboardAppearance() {

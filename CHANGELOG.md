@@ -6,6 +6,12 @@ Toutes les modifications notables apportées à ce projet sont documentées dans
 
 ## [Non publié] - 2026-09-24
 
+### Corrigé
+- **Bascule immédiate du thème clair / sombre (`ZenTheme.swift`, `BrowserContainerView.swift`, `WebToolsOverlayView.swift`)** :
+  - **Correction du blocage de thème par la couleur de page web** : Dans `BrowserContainerView`, la directive `.preferredColorScheme` écrasait le thème utilisateur en forçant `.light` dès qu'une page web chargée avait un fond clair (`isPageColorLight == true`). Cela bloquait l'application en mode clair jusqu'au redémarrage de l'app.
+  - **Application instantanée au niveau UIWindow** : Implémentation de `applyTheme()` dans `ZenThemeManager`, appliquant immédiatement `window.overrideUserInterfaceStyle` (`.dark`, `.light` ou `.unspecified`) à l'ensemble des fenêtres et scènes actives d'iOS.
+  - **Propagation aux feuilles modales (Sheets)** : Ajout de `.preferredColorScheme(themeManager.colorScheme)` sur la hiérarchie modale `WebToolsOverlayView`, garantissant un basculement visuel synchrone sans latence dans les réglages et l'ensemble de l'interface.
+
 ### Modifié
 - **Couleur d'accentuation globale (`ZenTheme.swift` & `AccentColor.colorset`)** :
   - Remplacement de l'ancienne teinte bleue par la couleur corail `#F76F53` avec adaptation intelligente de luminosité selon le thème :

@@ -299,6 +299,7 @@ public struct WebToolsOverlayView: View {
                     .tint(themeManager.accentColor)
                 }
             }
+            .preferredColorScheme(themeManager.colorScheme)
         }
     }
     
