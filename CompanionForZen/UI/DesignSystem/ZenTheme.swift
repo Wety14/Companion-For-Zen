@@ -3,8 +3,9 @@ import SwiftUI
 /// Zen Browser Design System Colors, Gradients, and Styling Constants
 public struct ZenDesign {
     // Brand Colors
-    public static let twilightBlue = Color(hex: "#537CF7")
-    public static let zenCoral     = Color(hex: "#F76F53")
+    public static let zenCoral         = Color(hex: "#F76F53")
+    public static let zenCoralLightMode = Color(hex: "#E85B3D") // Subtly deeper tone for optimal contrast and eye comfort in light mode
+    public static let twilightBlue     = Color(hex: "#537CF7")
     public static let zenForest    = Color(hex: "#2A9D8F")
     public static let zenBerry     = Color(hex: "#E76F51")
     public static let zenLavender  = Color(hex: "#A06CD5")
@@ -94,7 +95,16 @@ public final class ZenThemeManager: ObservableObject {
     }
     
     public var accentColor: Color {
-        ZenDesign.twilightBlue
+        switch themeMode {
+        case .automatic:
+            return Color(UIColor { trait in
+                trait.userInterfaceStyle == .dark ? UIColor(ZenDesign.zenCoral) : UIColor(ZenDesign.zenCoralLightMode)
+            })
+        case .light:
+            return ZenDesign.zenCoralLightMode
+        case .dark:
+            return ZenDesign.zenCoral
+        }
     }
     
     public var backgroundColor: Color {
