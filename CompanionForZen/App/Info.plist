@@ -112,20 +112,11 @@
 				<key>UIPrerenderedIcon</key>
 				<false/>
 			</dict>
-			<key>AppIcon-Frost</key>
+			<key>AppIcon-Retro</key>
 			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>AppIcon-Frost</string>
-				</array>
-				<key>UIPrerenderedIcon</key>
-				<false/>
-			</dict>
-			<key>AppIcon-Retrowave</key>
-			<dict>
-				<key>CFBundleIconFiles</key>
-				<array>
-					<string>AppIcon-Retrowave</string>
+					<string>AppIcon-Retro</string>
 				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>

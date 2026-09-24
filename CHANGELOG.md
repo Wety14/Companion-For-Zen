@@ -6,6 +6,19 @@ Toutes les modifications notables apportées à ce projet sont documentées dans
 
 ## [Non publié] - 2026-09-24
 
+### Ajouté
+- **Nouveau sélecteur d'icônes officielles Zen (`IconPickerView.swift`)** :
+  - Intégration des 4 nouvelles icônes officielles créées à partir des paquets `.icon` de `Assets/ZenLogos` :
+    - **Zen Twilight** (`TwilightIcon.icon`) : Bleu classique officiel (icône primaire par défaut).
+    - **Zen Coral** (`CoralIcon.icon`) : Teinte corail dégradée éclatante.
+    - **Zen Dark** (`DarkIcon.icon`) : Noir profond épuré.
+    - **Zen Retro** (`RetroIcon.icon`) : Ambiance rétro violet néon & or vintage.
+  - Nouvelle interface graphique en grille (2x2) avec prévisualisation en direct de l'icône sur l'écran d'accueil iOS (carte springboard avec effet de halo et ombre portée).
+  - Rendu haute fidélité natif des icônes dans les cartes avec indicateur de sélection animé et retour haptique instantané.
+  - Génération des ensembles d'icônes 1024x1024 (`AppIcon.appiconset`, `AppIcon-Twilight`, `AppIcon-Coral`, `AppIcon-Dark`, `AppIcon-Retro`) et des prévisualisations in-app (`Preview-Twilight`, `Preview-Coral`, `Preview-Dark`, `Preview-Retro`).
+  - Déclaration des 4 icônes alternatives dans `Info.plist` (`CFBundleAlternateIcons`).
+  - Suppression de l'ancien système (anciens doublons, icône Frost et Retrowave obsolètes).
+
 ### Modifié
 - **Réglages (`SettingsView.swift`)** :
   - Suppression de la mention descriptive « Compagnon mobile... » dans la section « À propos de Zen » pour un rendu plus épuré et sobre axé directement sur l'identité de marque Zen Browser.

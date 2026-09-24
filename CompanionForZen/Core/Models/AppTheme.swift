@@ -49,28 +49,43 @@ public enum AppIconOption: String, Codable, CaseIterable, Identifiable {
     case twilight = "AppIcon-Twilight"
     case coral = "AppIcon-Coral"
     case dark = "AppIcon-Dark"
-    case frost = "AppIcon-Frost"
-    case retrowave = "AppIcon-Retrowave"
+    case retro = "AppIcon-Retro"
     
     public var id: String { rawValue }
     
     public var displayName: String {
         switch self {
-        case .twilight: return "Zen Twilight (Bleu)"
-        case .coral: return "Zen Coral (Orange)"
-        case .dark: return "Zen Dark (Charbon)"
-        case .frost: return "Zen Frost (Givre)"
-        case .retrowave: return "Zen Retrowave (Néon)"
+        case .twilight: return "Zen Twilight"
+        case .coral: return "Zen Coral"
+        case .dark: return "Zen Dark"
+        case .retro: return "Zen Retro"
+        }
+    }
+    
+    public var subtitle: String {
+        switch self {
+        case .twilight: return "Bleu classique officiel"
+        case .coral: return "Dégradé corail chaleureux"
+        case .dark: return "Noir profond épuré"
+        case .retro: return "Ambiance violet & or rétro"
+        }
+    }
+    
+    public var previewImageName: String {
+        switch self {
+        case .twilight: return "Preview-Twilight"
+        case .coral: return "Preview-Coral"
+        case .dark: return "Preview-Dark"
+        case .retro: return "Preview-Retro"
         }
     }
     
     public var iconColor: Color {
         switch self {
-        case .twilight: return Color(hex: "#537CF7")
-        case .coral: return Color(hex: "#F76F53")
+        case .twilight: return Color(hex: "#5C7BEF")
+        case .coral: return Color(hex: "#E6785D")
         case .dark: return Color(hex: "#18181B")
-        case .frost: return Color(hex: "#3A86FF")
-        case .retrowave: return Color(hex: "#8338EC")
+        case .retro: return Color(hex: "#7A3DE3")
         }
     }
     
