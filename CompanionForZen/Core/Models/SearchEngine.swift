@@ -1,4 +1,5 @@
 import Foundation
+import Combine
 
 public enum SearchEngineType: String, Codable, CaseIterable, Identifiable {
     case duckDuckGo = "DuckDuckGo"
@@ -11,6 +12,65 @@ public enum SearchEngineType: String, Codable, CaseIterable, Identifiable {
     case custom = "Personnalisé"
     
     public var id: String { rawValue }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let raw = try container.decode(String.self)
+        self = Self.from(string: raw)
+    }
+    
+    public static func from(string: String) -> SearchEngineType {
+        if let exact = SearchEngineType(rawValue: string) {
+            return exact
+        }
+        let normalized = string.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
+        switch normalized {
+        case "duckduckgo", "duck duck go", "ddg":
+            return .duckDuckGo
+        case "brave", "brave search":
+            return .brave
+        case "google":
+            return .google
+        case "ecosia":
+            return .ecosia
+        case "kagi":
+            return .kagi
+        case "qwant":
+            return .qwant
+        case "searxng", "searx":
+            return .searxng
+        case "personnalisé", "personnalise", "custom", "personalizado":
+            return .custom
+        default:
+            return .duckDuckGo
+        }
+    }
+    
+    public var localizedName: String {
+        switch self {
+        case .custom:
+            switch LocalizationManager.shared.currentLanguage {
+            case .en: return "Custom"
+            case .es: return "Personalizado"
+            default: return "Personnalisé"
+            }
+        default:
+            return rawValue
+        }
+    }
+    
+    public var homeURL: URL {
+        switch self {
+        case .duckDuckGo: return URL(string: "https://duckduckgo.com")!
+        case .brave: return URL(string: "https://search.brave.com")!
+        case .google: return URL(string: "https://www.google.com")!
+        case .ecosia: return URL(string: "https://www.ecosia.org")!
+        case .kagi: return URL(string: "https://kagi.com")!
+        case .qwant: return URL(string: "https://www.qwant.com")!
+        case .searxng: return URL(string: "https://searx.be")!
+        case .custom: return URL(string: "https://duckduckgo.com")!
+        }
+    }
     
     public var queryFormat: String {
         switch self {
@@ -80,6 +140,17 @@ public struct SearchEngineConfig: Codable, Equatable {
         self.customURLTemplate = customURLTemplate
     }
     
+    enum CodingKeys: String, CodingKey {
+        case selectedType
+        case customURLTemplate
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.selectedType = (try? container.decode(SearchEngineType.self, forKey: .selectedType)) ?? .duckDuckGo
+        self.customURLTemplate = (try? container.decode(String.self, forKey: .customURLTemplate)) ?? "https://duckduckgo.com/?q=%@"
+    }
+    
     public func url(for query: String) -> URL {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -111,3 +182,103 @@ public struct SearchEngineConfig: Codable, Equatable {
         return URL(string: urlString) ?? URL(string: "https://duckduckgo.com/?q=\(encoded)")!
     }
 }
+// MARK: - SearchEngineManager
+
+public final class SearchEngineManager: ObservableObject {
+    public static let shared = SearchEngineManager()
+    
+    public static let appGroupId = "group.app.zen-browser.companion"
+    
+    private let configKey = "zen_search_engine_config"
+    private let typeKey = "zen_selected_search_engine"
+    private let customURLKey = "zen_custom_search_engine_url"
+    private let legacyTypeKeys = ["selected_search_engine", "search_engine", "default_search_engine", "searchEngine"]
+    
+    private var allSuites: [UserDefaults] {
+        var suites: [UserDefaults] = []
+        if TabManager.isAppGroupAvailable,
+           let group = UserDefaults(suiteName: Self.appGroupId) {
+            suites.append(group)
+        }
+        suites.append(UserDefaults.standard)
+        return suites
+    }
+    
+    @Published public var config: SearchEngineConfig {
+        didSet {
+            save()
+        }
+    }
+    
+    public init() {
+        self.config = Self.loadPersistedConfig()
+        // Ensure settings are mirrored and persisted across all containers immediately
+        self.save()
+    }
+    
+    private static func loadPersistedConfig() -> SearchEngineConfig {
+        let configKey = "zen_search_engine_config"
+        let typeKey = "zen_selected_search_engine"
+        let customURLKey = "zen_custom_search_engine_url"
+        let legacyTypeKeys = ["selected_search_engine", "search_engine", "default_search_engine", "searchEngine"]
+        
+        var suites: [UserDefaults] = []
+        if TabManager.isAppGroupAvailable,
+           let group = UserDefaults(suiteName: "group.app.zen-browser.companion") {
+            suites.append(group)
+        }
+        suites.append(UserDefaults.standard)
+        
+        let decoder = JSONDecoder()
+        
+        // 1. Try decoding JSON config from highest priority suite down
+        for suite in suites {
+            if let data = suite.data(forKey: configKey),
+               let saved = try? decoder.decode(SearchEngineConfig.self, from: data) {
+                return saved
+            }
+        }
+        
+        // 2. Try raw string representations in case JSON was lost during update or schema migration
+        for suite in suites {
+            if let rawString = suite.string(forKey: typeKey), !rawString.isEmpty {
+                let type = SearchEngineType.from(string: rawString)
+                let customURL = suite.string(forKey: customURLKey) ?? ""
+                return SearchEngineConfig(
+                    selectedType: type,
+                    customURLTemplate: customURL.isEmpty ? type.queryFormat : customURL
+                )
+            }
+            
+            for key in legacyTypeKeys {
+                if let rawString = suite.string(forKey: key), !rawString.isEmpty {
+                    let type = SearchEngineType.from(string: rawString)
+                    let customURL = suite.string(forKey: customURLKey) ?? ""
+                    return SearchEngineConfig(
+                        selectedType: type,
+                        customURLTemplate: customURL.isEmpty ? type.queryFormat : customURL
+                    )
+                }
+            }
+        }
+        
+        return SearchEngineConfig()
+    }
+    
+    public func save() {
+        let encoder = JSONEncoder()
+        let data = try? encoder.encode(config)
+        let typeRaw = config.selectedType.rawValue
+        let customURL = config.customURLTemplate
+        
+        for suite in allSuites {
+            if let data = data {
+                suite.set(data, forKey: configKey)
+            }
+            suite.set(typeRaw, forKey: typeKey)
+            suite.set(customURL, forKey: customURLKey)
+            suite.synchronize()
+        }
+    }
+}
+

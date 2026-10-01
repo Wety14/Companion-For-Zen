@@ -23,3 +23,7 @@ fastlane/screenshots
 fastlane/test_output
 *.swp
 *~
+
+# Localization backups & temporary locks
+*.backup*
+*.xcstrings-mcp.lock

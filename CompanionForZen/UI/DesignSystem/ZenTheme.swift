@@ -47,20 +47,44 @@ public final class ZenThemeManager: ObservableObject {
     @Published public var themeMode: AppThemeMode {
         didSet {
             UserDefaults.standard.set(themeMode.rawValue, forKey: "zen_theme_mode")
+            if themeMode == .automatic {
+                refreshSystemThemeIfNeeded()
+            }
             updateKeyboardAppearance()
             applyTheme()
+            objectWillChange.send()
         }
     }
     
+    /// Recorded system interface style detected via trait collections or SwiftUI environment
+    @Published public private(set) var systemUserInterfaceStyle: UIUserInterfaceStyle = .unspecified
+    
+    /// Effective UIKit interface style for window overrides.
+    /// When automatic, must return .unspecified so UIKit obeys iOS system appearance.
+    public var effectiveUserInterfaceStyle: UIUserInterfaceStyle {
+        switch themeMode {
+        case .automatic:
+            return .unspecified
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        }
+    }
+    
+    /// True when dark mode is currently active (either forced dark or automatic with system dark)
     public var isDarkMode: Bool {
         get {
             switch themeMode {
-            case .automatic:
-                return UITraitCollection.current.userInterfaceStyle == .dark
-            case .light:
-                return false
             case .dark:
                 return true
+            case .light:
+                return false
+            case .automatic:
+                if systemUserInterfaceStyle != .unspecified {
+                    return systemUserInterfaceStyle == .dark
+                }
+                return retrieveSystemStyle() == .dark
             }
         }
         set {
@@ -81,20 +105,75 @@ public final class ZenThemeManager: ObservableObject {
         } else {
             self.themeMode = .automatic
         }
+        
+        self.systemUserInterfaceStyle = retrieveSystemStyle()
         updateKeyboardAppearance()
         applyTheme()
+        
+        NotificationCenter.default.addObserver(
+            forName: UIScene.willConnectNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.refreshSystemThemeIfNeeded()
+            self?.applyTheme()
+        }
+        
+        NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.refreshSystemThemeIfNeeded()
+        }
+    }
+    
+    public func retrieveSystemStyle() -> UIUserInterfaceStyle {
+        for scene in UIApplication.shared.connectedScenes {
+            if let windowScene = scene as? UIWindowScene {
+                let screenStyle = windowScene.screen.traitCollection.userInterfaceStyle
+                if screenStyle != .unspecified {
+                    return screenStyle
+                }
+                let sceneStyle = windowScene.traitCollection.userInterfaceStyle
+                if sceneStyle != .unspecified {
+                    return sceneStyle
+                }
+            }
+        }
+        let currentTrait = UITraitCollection.current.userInterfaceStyle
+        if currentTrait != .unspecified {
+            return currentTrait
+        }
+        return .unspecified
+    }
+    
+    public func updateSystemColorScheme(_ scheme: ColorScheme) {
+        let style: UIUserInterfaceStyle = (scheme == .dark) ? .dark : .light
+        if systemUserInterfaceStyle != style {
+            systemUserInterfaceStyle = style
+            objectWillChange.send()
+            if themeMode == .automatic {
+                updateKeyboardAppearance()
+                applyTheme()
+            }
+        }
+    }
+    
+    public func refreshSystemThemeIfNeeded() {
+        let detected = retrieveSystemStyle()
+        if detected != .unspecified && detected != systemUserInterfaceStyle {
+            systemUserInterfaceStyle = detected
+            objectWillChange.send()
+            if themeMode == .automatic {
+                updateKeyboardAppearance()
+                applyTheme()
+            }
+        }
     }
     
     public func applyTheme() {
-        let style: UIUserInterfaceStyle
-        switch themeMode {
-        case .automatic:
-            style = .unspecified
-        case .light:
-            style = .light
-        case .dark:
-            style = .dark
-        }
+        let style = effectiveUserInterfaceStyle
         
         DispatchQueue.main.async {
             for scene in UIApplication.shared.connectedScenes {
@@ -108,41 +187,25 @@ public final class ZenThemeManager: ObservableObject {
     
     public func updateKeyboardAppearance() {
         switch themeMode {
-        case .automatic:
-            UITextField.appearance().keyboardAppearance = .default
-        case .light:
-            UITextField.appearance().keyboardAppearance = .light
         case .dark:
             UITextField.appearance().keyboardAppearance = .dark
+        case .light:
+            UITextField.appearance().keyboardAppearance = .light
+        case .automatic:
+            UITextField.appearance().keyboardAppearance = .default
         }
     }
     
     public var accentColor: Color {
-        switch themeMode {
-        case .automatic:
-            return Color(UIColor { trait in
-                trait.userInterfaceStyle == .dark ? UIColor(ZenDesign.zenCoral) : UIColor(ZenDesign.zenCoralLightMode)
-            })
-        case .light:
-            return ZenDesign.zenCoralLightMode
-        case .dark:
-            return ZenDesign.zenCoral
-        }
+        isDarkMode ? ZenDesign.zenCoral : ZenDesign.zenCoralLightMode
     }
     
     public var backgroundColor: Color {
-        switch themeMode {
-        case .automatic:
-            return Color(UIColor { trait in
-                trait.userInterfaceStyle == .dark ? UIColor(Color(hex: "#0E131F")) : UIColor(Color(hex: "#F8F9FA"))
-            })
-        case .light:
-            return Color(hex: "#F8F9FA")
-        case .dark:
-            return Color(hex: "#0E131F")
-        }
+        isDarkMode ? Color(hex: "#0E131F") : Color(hex: "#F8F9FA")
     }
     
+    /// ColorScheme passed to SwiftUI `.preferredColorScheme(...)`.
+    /// When automatic, MUST return nil so SwiftUI obeys the operating system appearance.
     public var colorScheme: ColorScheme? {
         switch themeMode {
         case .automatic:

@@ -18,6 +18,41 @@ public enum AutoArchivePolicy: String, Codable, CaseIterable, Identifiable {
         case .never: return nil
         }
     }
+    
+    public var localizedTitle: String {
+        switch self {
+        case .twelveHours:
+            switch LocalizationManager.shared.currentLanguage {
+            case .en: return "12 hours"
+            case .es: return "12 horas"
+            default: return "12 heures"
+            }
+        case .twentyFourHours:
+            switch LocalizationManager.shared.currentLanguage {
+            case .en: return "24 hours"
+            case .es: return "24 horas"
+            default: return "24 heures"
+            }
+        case .threeDays:
+            switch LocalizationManager.shared.currentLanguage {
+            case .en: return "3 days"
+            case .es: return "3 días"
+            default: return "3 jours"
+            }
+        case .sevenDays:
+            switch LocalizationManager.shared.currentLanguage {
+            case .en: return "7 days"
+            case .es: return "7 días"
+            default: return "7 jours"
+            }
+        case .never:
+            switch LocalizationManager.shared.currentLanguage {
+            case .en: return "Never"
+            case .es: return "Nunca"
+            default: return "Jamais"
+            }
+        }
+    }
 }
 
 public struct ContentBlockerSettings: Codable, Equatable {
@@ -81,16 +116,18 @@ public struct AppSettings: Codable, Equatable {
     public var readerSettings: ReaderSettings
     public var requestDesktopSiteByDefault: Bool
     public var languageCode: String
+    public var aiAutoRenamePinnedTabs: Bool
     
     public init(
         autoArchivePolicy: AutoArchivePolicy = .twentyFourHours,
         contentBlocker: ContentBlockerSettings = ContentBlockerSettings(),
         searchConfig: SearchEngineConfig = SearchEngineConfig(),
         themePreset: ZenThemePreset = .twilight,
-        selectedIcon: AppIconOption = .primary,
+        selectedIcon: AppIconOption = .coral,
         readerSettings: ReaderSettings = ReaderSettings(),
         requestDesktopSiteByDefault: Bool = false,
-        languageCode: String = "fr"
+        languageCode: String = "fr",
+        aiAutoRenamePinnedTabs: Bool = true
     ) {
         self.autoArchivePolicy = autoArchivePolicy
         self.contentBlocker = contentBlocker
@@ -100,5 +137,6 @@ public struct AppSettings: Codable, Equatable {
         self.readerSettings = readerSettings
         self.requestDesktopSiteByDefault = requestDesktopSiteByDefault
         self.languageCode = languageCode
+        self.aiAutoRenamePinnedTabs = aiAutoRenamePinnedTabs
     }
 }

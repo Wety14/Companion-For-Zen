@@ -16,27 +16,49 @@ public struct TabCardView: View {
             onSelect()
         }) {
             HStack(spacing: 12) {
-                // Favicon or host letter circle
+                // Real Favicon
                 ZStack {
                     Circle()
                         .fill(isActive ? themeManager.accentColor : Color.primary.opacity(0.08))
                         .frame(width: 34, height: 34)
                     
-                    Text(String(tab.displayHost.prefix(1)).uppercased())
-                        .font(.system(size: 14, weight: .bold, design: .rounded))
-                        .foregroundColor(isActive ? .white : .primary)
+                    TabFaviconView(tab: tab, size: 20, fallbackColor: isActive ? .white : .primary)
                 }
                 
                 VStack(alignment: .leading, spacing: 3) {
-                    Text(tab.title)
-                        .font(.system(size: 15, weight: isActive ? .semibold : .medium))
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
+                    HStack(spacing: 6) {
+                        Text(tab.title)
+                            .font(.system(size: 15, weight: isActive ? .semibold : .medium))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+                        
+                        if tab.isPrivate {
+                            Image(systemName: "eyeglasses.slash")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(.purple)
+                        }
+                    }
                     
-                    Text(tab.displayHost)
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
+                    HStack(spacing: 6) {
+                        Text(tab.displayHost)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                        
+                        if let folder = tab.folder, !folder.isEmpty {
+                            HStack(spacing: 3) {
+                                Image(systemName: "folder")
+                                    .font(.system(size: 9))
+                                Text(folder)
+                                    .font(.system(size: 10, weight: .medium))
+                            }
+                            .foregroundColor(themeManager.accentColor)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(themeManager.accentColor.opacity(0.12))
+                            .clipShape(Capsule())
+                        }
+                    }
                 }
                 
                 Spacer()
@@ -73,9 +95,9 @@ public struct TabCardView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
                     .stroke(
-                        isActive ? themeManager.accentColor : Color.primary.opacity(0.06),
-                        lineWidth: isActive ? 1.5 : 1
-                    )
+                    isActive ? themeManager.accentColor : Color.primary.opacity(0.06),
+                    lineWidth: isActive ? 1.5 : 1
+                )
             )
         }
         .buttonStyle(.plain)

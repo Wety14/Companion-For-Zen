@@ -8,7 +8,7 @@ public final class HandoffService: ObservableObject {
     public static let shared = HandoffService()
     
     public static let browsingActivityType = NSUserActivityTypeBrowsingWeb
-    public static let zenCompanionActivityType = "app.zenbrowser.companion.browsing"
+    public static let zenCompanionActivityType = "app.zen-browser.companion.browsing"
     
     @Published public var isHandoffEnabled: Bool {
         didSet {
@@ -29,73 +29,54 @@ public final class HandoffService: ObservableObject {
         self.isHandoffEnabled = UserDefaults.standard.object(forKey: "handoff_enabled") as? Bool ?? true
     }
     
-    /// Broadcast the active tab to nearby Apple devices (macOS Zen Browser, iPad, etc.)
-    public func broadcastTab(url: URL?, title: String, spaceName: String? = nil) {
+    /// Broadcast the current tab to nearby Apple devices via Handoff
+    public func broadcastTab(url: URL?, title: String?, spaceName: String? = nil) {
         guard isHandoffEnabled, let url = url, url.scheme == "http" || url.scheme == "https" else {
             invalidateCurrentActivity()
             return
         }
         
-        let activity = NSUserActivity(activityType: Self.browsingActivityType)
-        activity.title = title.isEmpty ? (url.host ?? "Zen Browser") : title
+        let activity = NSUserActivity(activityType: HandoffService.browsingActivityType)
         activity.webpageURL = url
+        activity.title = title ?? url.host ?? "Zen Browser"
         activity.isEligibleForHandoff = true
         activity.isEligibleForSearch = true
         activity.isEligibleForPublicIndexing = false
         
         var userInfo: [String: Any] = [
             "url": url.absoluteString,
-            "title": title
+            "title": title ?? ""
         ]
         if let space = spaceName {
-            userInfo["space"] = space
+            userInfo["spaceName"] = space
         }
         activity.userInfo = userInfo
-        activity.requiredUserInfoKeys = Set(["url"])
+        activity.requiredUserInfoKeys = ["url"]
         
-        // Become active
         activity.becomeCurrent()
         self.currentActivity = activity
     }
     
-    /// Handle incoming Handoff from macOS Zen Browser
-    public func handleIncomingUserActivity(_ userActivity: NSUserActivity) -> URL? {
-        guard isHandoffEnabled else { return nil }
-        
-        var targetURL: URL?
-        var pageTitle = userActivity.title ?? "Page transmise depuis le Mac"
-        
-        if let webURL = userActivity.webpageURL {
-            targetURL = webURL
-        } else if let urlStr = userActivity.userInfo?["url"] as? String, let parsed = URL(string: urlStr) {
-            targetURL = parsed
+    /// Invalidate existing handoff broadcast
+    public func invalidateCurrentActivity() {
+        currentActivity?.invalidate()
+        currentActivity = nil
+    }
+    
+    /// Handle an incoming NSUserActivity from another device
+    public func handleIncomingUserActivity(_ activity: NSUserActivity) -> URL? {
+        if let webpageURL = activity.webpageURL {
+            self.incomingHandoffURL = webpageURL
+            self.incomingHandoffTitle = activity.title
+            return webpageURL
         }
         
-        if let title = userActivity.userInfo?["title"] as? String, !title.isEmpty {
-            pageTitle = title
-        }
-        
-        if let url = targetURL {
-            DispatchQueue.main.async {
-                self.incomingHandoffURL = url
-                self.incomingHandoffTitle = pageTitle
-                self.showIncomingHandoffBanner = true
-                Haptics.success()
-            }
+        if let urlString = activity.userInfo?["url"] as? String, let url = URL(string: urlString) {
+            self.incomingHandoffURL = url
+            self.incomingHandoffTitle = activity.userInfo?["title"] as? String ?? activity.title
             return url
         }
         
         return nil
-    }
-    
-    public func dismissIncomingBanner() {
-        showIncomingHandoffBanner = false
-        incomingHandoffURL = nil
-        incomingHandoffTitle = nil
-    }
-    
-    public func invalidateCurrentActivity() {
-        currentActivity?.invalidate()
-        currentActivity = nil
     }
 }

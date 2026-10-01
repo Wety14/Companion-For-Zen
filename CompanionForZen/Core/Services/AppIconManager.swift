@@ -5,8 +5,8 @@ import SwiftUI
 public final class AppIconManager: ObservableObject {
     public static let shared = AppIconManager()
 
-    public enum AppIcon: String, Codable, CaseIterable, Identifiable {
-        case primary = "AppIcon"        // nil en interne pour setAlternateIconName
+    public enum AppIcon: String, Codable, CaseIterable, Identifiable, Sendable {
+        case coral = "CoralIcon"        // nil en interne pour setAlternateIconName (icône par défaut)
         case dark = "DarkIcon"
         case retro = "RetroIcon"
         case twilight = "TwilightIcon"
@@ -15,7 +15,7 @@ public final class AppIconManager: ObservableObject {
 
         public var displayName: String {
             switch self {
-            case .primary: return "Zen Coral"
+            case .coral: return "Zen Coral"
             case .dark: return "Zen Dark"
             case .retro: return "Zen Retro"
             case .twilight: return "Zen Twilight"
@@ -24,7 +24,7 @@ public final class AppIconManager: ObservableObject {
 
         public var subtitle: String {
             switch self {
-            case .primary: return "Teinte corail officielle"
+            case .coral: return "Teinte corail officielle"
             case .dark: return "Noir profond épuré"
             case .retro: return "Violet néon & or rétro"
             case .twilight: return "Bleu classique océanique"
@@ -33,7 +33,7 @@ public final class AppIconManager: ObservableObject {
 
         public var iconColor: Color {
             switch self {
-            case .primary: return Color(hex: "#F76F53")
+            case .coral: return Color(hex: "#F76F53")
             case .dark: return Color(hex: "#18181B")
             case .retro: return Color(hex: "#7A3DE3")
             case .twilight: return Color(hex: "#5C7BEF")
@@ -47,14 +47,16 @@ public final class AppIconManager: ObservableObject {
             }
         }
 
-        // Nom à passer à l'API : nil pour l'icône principale
+        // Nom à passer à l'API : nil pour l'icône principale (CoralIcon)
+        public var alternateIconName: String? {
+            iconName
+        }
+
         public var iconName: String? {
-            self == .primary ? nil : rawValue
+            self == .coral ? nil : rawValue
         }
 
         // Nom de l'image "aperçu" à afficher dans le sélecteur
-        // (à ajouter séparément dans les assets, car UIImage
-        // ne peut pas lire une icône d'app comme une image classique)
         public var previewImageName: String {
             "Preview-\(rawValue)"
         }
@@ -64,7 +66,7 @@ public final class AppIconManager: ObservableObject {
 
     public init() {
         let name = UIApplication.shared.alternateIconName
-        currentIcon = AppIcon.allCases.first { $0.iconName == name } ?? .primary
+        currentIcon = AppIcon.allCases.first { $0.iconName == name } ?? .coral
     }
 
     public var isSupported: Bool {

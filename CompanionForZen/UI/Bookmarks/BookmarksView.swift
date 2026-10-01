@@ -5,6 +5,7 @@ public struct BookmarksView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var bookmarkService = BookmarkService.shared
     @ObservedObject var themeManager = ZenThemeManager.shared
+    @ObservedObject var locManager = LocalizationManager.shared
     
     @State private var searchText: String = ""
     public var onSelectURL: (URL) -> Void
@@ -38,14 +39,14 @@ public struct BookmarksView: View {
                         Button(role: .destructive) {
                             bookmarkService.deleteBookmark(bookmark)
                         } label: {
-                            Label(tr("delete_tab"), systemImage: "trash")
+                            Label(String(localized: "delete_tab", bundle: .main), systemImage: "trash")
                         }
                     }
                 }
             }
             .listStyle(.insetGrouped)
-            .searchable(text: $searchText, prompt: "Rechercher un favori...")
-            .navigationTitle(tr("bookmarks"))
+            .searchable(text: $searchText, prompt: String(localized: "search_bookmark_prompt", bundle: .main))
+            .navigationTitle(String(localized: "bookmarks", bundle: .main))
             .navigationBarTitleDisplayMode(.inline)
     }
     

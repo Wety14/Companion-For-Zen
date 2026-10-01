@@ -1,7 +1,7 @@
 import SwiftUI
 import WebKit
 
-/// UIViewRepresentable wrapping WKWebView with AdBlock, Zoom, and Desktop Site support.
+/// UIViewRepresentable wrapping WKWebView with AdBlock, Zoom, Fast-Scroll detection, and Snapshot support.
 public struct WebViewContainer: UIViewRepresentable {
     public let tab: Tab
     @ObservedObject var adBlockService = AdBlockService.shared
@@ -12,6 +12,7 @@ public struct WebViewContainer: UIViewRepresentable {
     @Binding var currentURL: URL?
     @Binding var pageTitle: String
     @Binding var isPageColorLight: Bool
+    @Binding var isFastScrolling: Bool
     
     // Command triggers
     public var reloadTrigger: Bool
@@ -30,6 +31,7 @@ public struct WebViewContainer: UIViewRepresentable {
         currentURL: Binding<URL?>,
         pageTitle: Binding<String>,
         isPageColorLight: Binding<Bool> = .constant(true),
+        isFastScrolling: Binding<Bool> = .constant(false),
         reloadTrigger: Bool = false,
         goBackTrigger: Bool = false,
         goForwardTrigger: Bool = false,
@@ -45,6 +47,7 @@ public struct WebViewContainer: UIViewRepresentable {
         self._currentURL = currentURL
         self._pageTitle = pageTitle
         self._isPageColorLight = isPageColorLight
+        self._isFastScrolling = isFastScrolling
         self.reloadTrigger = reloadTrigger
         self.goBackTrigger = goBackTrigger
         self.goForwardTrigger = goForwardTrigger
@@ -65,12 +68,18 @@ public struct WebViewContainer: UIViewRepresentable {
         // Request desktop or mobile content mode
         configuration.defaultWebpagePreferences.preferredContentMode = isDesktopMode ? .desktop : .mobile
         
+        // Private / Incognito browsing: use non-persistent website data store (no cookies/cache saved to disk)
+        if tab.isPrivate {
+            configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+        }
+        
         // Apply Ad, Tracker, and Cookie Banner blocking
         adBlockService.applyTo(configuration: configuration, url: tab.url)
         
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
+        webView.scrollView.delegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         webView.scrollView.contentInsetAdjustmentBehavior = .automatic
         webView.scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
@@ -99,29 +108,42 @@ public struct WebViewContainer: UIViewRepresentable {
     
     public func updateUIView(_ webView: WKWebView, context: Context) {
         // Handle triggers
-        if let newURL = loadURLTrigger, webView.url != newURL {
+        if let newURL = loadURLTrigger, context.coordinator.lastLoadedURLTrigger != newURL {
+            context.coordinator.lastLoadedURLTrigger = newURL
             adBlockService.updateWebViewBlocking(webView: webView, for: newURL)
             webView.load(URLRequest(url: newURL))
         }
         
-        if context.coordinator.lastReloadTrigger != reloadTrigger {
+        if let lastReload = context.coordinator.lastReloadTrigger {
+            if lastReload != reloadTrigger {
+                context.coordinator.lastReloadTrigger = reloadTrigger
+                adBlockService.updateWebViewBlocking(webView: webView, for: webView.url)
+                webView.reload()
+            }
+        } else {
             context.coordinator.lastReloadTrigger = reloadTrigger
-            adBlockService.updateWebViewBlocking(webView: webView, for: webView.url)
-            webView.reload()
         }
         
-        if context.coordinator.lastGoBackTrigger != goBackTrigger {
+        if let lastBack = context.coordinator.lastGoBackTrigger {
+            if lastBack != goBackTrigger {
+                context.coordinator.lastGoBackTrigger = goBackTrigger
+                if webView.canGoBack {
+                    webView.goBack()
+                }
+            }
+        } else {
             context.coordinator.lastGoBackTrigger = goBackTrigger
-            if webView.canGoBack {
-                webView.goBack()
-            }
         }
         
-        if context.coordinator.lastGoForwardTrigger != goForwardTrigger {
-            context.coordinator.lastGoForwardTrigger = goForwardTrigger
-            if webView.canGoForward {
-                webView.goForward()
+        if let lastForward = context.coordinator.lastGoForwardTrigger {
+            if lastForward != goForwardTrigger {
+                context.coordinator.lastGoForwardTrigger = goForwardTrigger
+                if webView.canGoForward {
+                    webView.goForward()
+                }
             }
+        } else {
+            context.coordinator.lastGoForwardTrigger = goForwardTrigger
         }
         
         // Update page zoom
@@ -130,13 +152,14 @@ public struct WebViewContainer: UIViewRepresentable {
         }
     }
     
-    public class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, WKDownloadDelegate {
+    public class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate, UIScrollViewDelegate, WKDownloadDelegate {
         var parent: WebViewContainer
         weak var webView: WKWebView?
         weak var refreshControl: UIRefreshControl?
-        var lastReloadTrigger: Bool = false
-        var lastGoBackTrigger: Bool = false
-        var lastGoForwardTrigger: Bool = false
+        var lastReloadTrigger: Bool? = nil
+        var lastGoBackTrigger: Bool? = nil
+        var lastGoForwardTrigger: Bool? = nil
+        var lastLoadedURLTrigger: URL? = nil
         private var progressObservation: NSKeyValueObservation?
         private var titleObservation: NSKeyValueObservation?
         private var urlObservation: NSKeyValueObservation?
@@ -145,13 +168,43 @@ public struct WebViewContainer: UIViewRepresentable {
         private var loadingObservation: NSKeyValueObservation?
         private var themeColorObservation: NSKeyValueObservation?
         
+        private var scrollIdleWorkItem: DispatchWorkItem?
+        private var isCurrentlyFastScrolling = false
+        
         init(_ parent: WebViewContainer) {
             self.parent = parent
+            super.init()
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleSnapshotNotification),
+                name: Notification.Name("CaptureCurrentTabSnapshot"),
+                object: nil
+            )
+        }
+        
+        deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
+        
+        @objc private func handleSnapshotNotification() {
+            captureSnapshot()
         }
         
         @objc func handleRefresh(_ sender: UIRefreshControl) {
             Haptics.light()
             webView?.reload()
+        }
+        
+        func captureSnapshot() {
+            guard let webView = self.webView, webView.bounds.width > 0, webView.bounds.height > 0 else { return }
+            let config = WKSnapshotConfiguration()
+            config.afterScreenUpdates = false
+            let tabId = self.parent.tab.id
+            webView.takeSnapshot(with: config) { image, error in
+                if let img = image {
+                    TabSnapshotManager.shared.saveSnapshot(img, for: tabId)
+                }
+            }
         }
         
         func setupObservers(for webView: WKWebView) {
@@ -166,7 +219,9 @@ public struct WebViewContainer: UIViewRepresentable {
                     self?.parent.pageTitle = title
                     if let url = wv.url {
                         TabManager.shared.updateActiveTab(url: url, title: title)
-                        HistoryService.shared.recordVisit(url: url, title: title)
+                        if let isPrivate = self?.parent.tab.isPrivate, !isPrivate {
+                            HistoryService.shared.recordVisit(url: url, title: title)
+                        }
                     }
                 }
             }
@@ -200,6 +255,98 @@ public struct WebViewContainer: UIViewRepresentable {
             }
         }
         
+        // MARK: - UIScrollViewDelegate (Fast-Scroll Detection - Permissive Downward Reduction)
+        
+        private var lastContentOffsetY: CGFloat = 0
+        private var lastScrollTime: CFTimeInterval = 0
+        
+        public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            lastContentOffsetY = scrollView.contentOffset.y
+            lastScrollTime = CACurrentMediaTime()
+        }
+        
+        public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let currentOffsetY = scrollView.contentOffset.y
+            let now = CACurrentMediaTime()
+            let dt = max(now - lastScrollTime, 0.001)
+            let deltaY = currentOffsetY - lastContentOffsetY
+            let realVelocityY = deltaY / CGFloat(dt) // positive when scrolling down
+            
+            lastScrollTime = now
+            lastContentOffsetY = currentOffsetY
+            
+            // 1. At top of the webpage or scrolling upwards: restore full size
+            if currentOffsetY <= 15 {
+                endFastScroll()
+                return
+            }
+            
+            if deltaY < -6 {
+                // Scrolling up -> restore omnibar immediately
+                endFastScroll()
+                return
+            }
+            
+            // 2. Permissive detection for scrolling downwards:
+            let panVelocityY = abs(scrollView.panGestureRecognizer.velocity(in: scrollView).y)
+            let isMovingDownwards = deltaY > 1 && (
+                panVelocityY > 120 ||
+                realVelocityY > 120 ||
+                (scrollView.isDragging && deltaY > 3) ||
+                (scrollView.isDecelerating && deltaY > 5)
+            )
+            
+            if isMovingDownwards {
+                if !isCurrentlyFastScrolling {
+                    isCurrentlyFastScrolling = true
+                    DispatchQueue.main.async { [weak self] in
+                        self?.parent.isFastScrolling = true
+                    }
+                }
+                
+                scrollIdleWorkItem?.cancel()
+                let workItem = DispatchWorkItem { [weak self] in
+                    guard let self = self, self.isCurrentlyFastScrolling else { return }
+                    self.isCurrentlyFastScrolling = false
+                    DispatchQueue.main.async {
+                        self.parent.isFastScrolling = false
+                    }
+                }
+                scrollIdleWorkItem = workItem
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.40, execute: workItem)
+            }
+        }
+        
+        public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            scrollIdleWorkItem?.cancel()
+            let workItem = DispatchWorkItem { [weak self] in
+                self?.endFastScroll()
+            }
+            scrollIdleWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: workItem)
+        }
+        
+        public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            if !decelerate {
+                scrollIdleWorkItem?.cancel()
+                let workItem = DispatchWorkItem { [weak self] in
+                    self?.endFastScroll()
+                }
+                scrollIdleWorkItem = workItem
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.25, execute: workItem)
+            }
+        }
+        
+        private func endFastScroll() {
+            scrollIdleWorkItem?.cancel()
+            if isCurrentlyFastScrolling {
+                isCurrentlyFastScrolling = false
+                DispatchQueue.main.async { [weak self] in
+                    self?.parent.isFastScrolling = false
+                }
+            }
+        }
+        
         // MARK: - WKNavigationDelegate
         
         public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -221,9 +368,17 @@ public struct WebViewContainer: UIViewRepresentable {
                 self.refreshControl?.endRefreshing()
             }
             detectPageLightness(webView)
+            // Capture real content snapshot once page is rendered
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
+                self?.captureSnapshot()
+            }
         }
         
         public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            let nsError = error as NSError
+            if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
+                return
+            }
             DispatchQueue.main.async {
                 self.parent.isLoading = false
                 self.refreshControl?.endRefreshing()
@@ -231,6 +386,10 @@ public struct WebViewContainer: UIViewRepresentable {
         }
         
         public func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+            let nsError = error as NSError
+            if nsError.domain == NSURLErrorDomain && nsError.code == NSURLErrorCancelled {
+                return
+            }
             DispatchQueue.main.async {
                 self.parent.isLoading = false
                 self.refreshControl?.endRefreshing()
@@ -238,12 +397,28 @@ public struct WebViewContainer: UIViewRepresentable {
         }
         
         public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-            // Check if navigation action is a file download
             if navigationAction.shouldPerformDownload {
                 decisionHandler(.download)
                 return
             }
+            
+            // Handle external schemes (e.g. mailto:, tel:, sms:, maps:) safely in main app process
+            if let url = navigationAction.request.url,
+               let scheme = url.scheme?.lowercased(),
+               scheme != "http" && scheme != "https" && scheme != "about" && scheme != "blob" && scheme != "data" {
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                    decisionHandler(.cancel)
+                    return
+                }
+            }
+            
             decisionHandler(.allow)
+        }
+        
+        public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+            // Automatically recover if WebContent process was terminated by system
+            webView.reload()
         }
         
         public func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
@@ -265,8 +440,9 @@ public struct WebViewContainer: UIViewRepresentable {
         // MARK: - WKDownloadDelegate
         
         public func download(_ download: WKDownload, decideDestinationUsing response: URLResponse, suggestedFilename: String, completionHandler: @escaping (URL?) -> Void) {
-            if let originalURL = download.originalRequest?.url {
-                DownloadService.shared.startDownload(url: originalURL, suggestedFilename: suggestedFilename)
+            let targetURL = download.originalRequest?.url ?? response.url
+            if let url = targetURL {
+                DownloadService.shared.requestDownload(url: url, suggestedFilename: suggestedFilename)
             }
             completionHandler(nil)
         }
@@ -287,42 +463,6 @@ public struct WebViewContainer: UIViewRepresentable {
                 }
                 return
             }
-            
-            let js = """
-            (function() {
-                var el = document.body;
-                var bg = el ? window.getComputedStyle(el).backgroundColor : '';
-                if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') {
-                    var doc = document.documentElement;
-                    bg = doc ? window.getComputedStyle(doc).backgroundColor : '';
-                }
-                return bg || '';
-            })()
-            """
-            webView.evaluateJavaScript(js) { [weak self] result, _ in
-                guard let self = self else { return }
-                let bgStr = (result as? String) ?? ""
-                let isLight = self.isColorStringLight(bgStr)
-                DispatchQueue.main.async {
-                    self.parent.isPageColorLight = isLight
-                }
-            }
-        }
-        
-        private func isColorStringLight(_ str: String) -> Bool {
-            if str.isEmpty || str == "transparent" || str == "rgba(0, 0, 0, 0)" {
-                return true
-            }
-            let nums = str.components(separatedBy: CharacterSet.decimalDigits.inverted)
-                .compactMap { Double($0) }
-            if nums.count >= 3 {
-                let r = nums[0] / 255.0
-                let g = nums[1] / 255.0
-                let b = nums[2] / 255.0
-                let luminance = 0.299 * r + 0.587 * g + 0.114 * b
-                return luminance > 0.5
-            }
-            return true
         }
     }
 }

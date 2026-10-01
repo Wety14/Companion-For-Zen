@@ -5,10 +5,11 @@ import SwiftUI
 public struct SearchEnginePickerView: View {
     @Binding var searchConfig: SearchEngineConfig
     @ObservedObject var themeManager = ZenThemeManager.shared
+    @ObservedObject var locManager = LocalizationManager.shared
     
     public var body: some View {
         List {
-            Section("Moteurs intégrés") {
+            Section(String(localized: "builtin_engines", bundle: .main)) {
                 ForEach(SearchEngineType.allCases.filter { $0 != .custom }) { engine in
                     Button(action: {
                         Haptics.selection()
@@ -17,7 +18,7 @@ public struct SearchEnginePickerView: View {
                         HStack(spacing: 14) {
                             SearchEngineLogoView(engine: engine)
                             
-                            Text(engine.rawValue)
+                            Text(engine.localizedName)
                                 .font(.system(size: 16, weight: .medium))
                                 .foregroundColor(.primary)
                             
@@ -34,7 +35,7 @@ public struct SearchEnginePickerView: View {
                 }
             }
             
-            Section("Moteur personnalisé") {
+            Section(String(localized: "custom_engine", bundle: .main)) {
                 Button(action: {
                     Haptics.selection()
                     searchConfig.selectedType = .custom
@@ -42,7 +43,7 @@ public struct SearchEnginePickerView: View {
                     HStack(spacing: 14) {
                         SearchEngineLogoView(engine: .custom)
                         
-                        Text(SearchEngineType.custom.rawValue)
+                        Text(SearchEngineType.custom.localizedName)
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.primary)
                         
@@ -59,7 +60,7 @@ public struct SearchEnginePickerView: View {
                 
                 if searchConfig.selectedType == .custom {
                     VStack(alignment: .leading, spacing: 6) {
-                        Text("URL du modèle de recherche (utilisez %@ ou %s pour la requête) :")
+                        Text(String(localized: "custom_engine_template", bundle: .main))
                             .font(.caption)
                             .foregroundColor(.secondary)
                         
@@ -74,7 +75,7 @@ public struct SearchEnginePickerView: View {
             }
         }
         .listStyle(.insetGrouped)
-        .navigationTitle(tr("search_engine"))
+        .navigationTitle(String(localized: "search_engine", bundle: .main))
         .navigationBarTitleDisplayMode(.inline)
     }
 }

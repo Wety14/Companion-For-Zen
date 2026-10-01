@@ -7,15 +7,26 @@ public struct SettingsView: View {
     @ObservedObject var locManager = LocalizationManager.shared
     @ObservedObject var tabManager = TabManager.shared
     @ObservedObject var handoffService = HandoffService.shared
+    @ObservedObject var adBlockService = AdBlockService.shared
+    @ObservedObject var syncService = FirefoxSyncService.shared
+    @State private var showingTranslationPrivacyAlert: Bool = false
     
     @AppStorage("auto_archive_policy") private var autoArchivePolicy: AutoArchivePolicy = .twentyFourHours
     @AppStorage("block_ads") private var blockAds: Bool = true
     @AppStorage("block_trackers") private var blockTrackers: Bool = true
     @AppStorage("block_cookies") private var blockCookies: Bool = true
-    @AppStorage("desktop_by_default") private var desktopByDefault: Bool = false
-    @AppStorage("translation_always_allow") private var alwaysAllowTranslation: Bool = false
+    public var highlightTranslationSetting: Bool = false
+    @ObservedObject var translationService = TranslationService.shared
+    @State private var isTranslationHighlighted: Bool = false
     
-    @State private var searchConfig = SearchEngineConfig()
+    @AppStorage("desktop_by_default") private var desktopByDefault: Bool = false
+    @AppStorage("ai_auto_rename_pinned_tabs") private var aiAutoRenamePinnedTabs: Bool = true
+    
+    public init(highlightTranslationSetting: Bool = false) {
+        self.highlightTranslationSetting = highlightTranslationSetting
+    }
+    
+    @ObservedObject private var searchEngineManager = SearchEngineManager.shared
     
     public var body: some View {
         List {
@@ -33,15 +44,9 @@ public struct SettingsView: View {
                                     .foregroundColor(themeManager.accentColor)
                             }
                             
-                            VStack(alignment: .leading, spacing: 3) {
-                                Text(tr("set_default_browser"))
-                                    .font(.body.weight(.medium))
-                                    .foregroundColor(.primary)
-                                
-                                Text(tr("default_browser_subtitle"))
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                            }
+                            Text(String(localized: "set_default_browser", bundle: .main))
+                                .font(.body.weight(.medium))
+                                .foregroundColor(.primary)
                             
                             Spacer()
                             
@@ -52,30 +57,30 @@ public struct SettingsView: View {
                         .padding(.vertical, 4)
                     }
                 } footer: {
-                    Text(tr("default_browser_footer"))
+                    Text(String(localized: "default_browser_footer", bundle: .main))
                 }
                 
                 // Search Engine
-                Section(tr("search_engine")) {
+                Section(String(localized: "search_engine", bundle: .main)) {
                     NavigationLink {
-                        SearchEnginePickerView(searchConfig: $searchConfig)
+                        SearchEnginePickerView(searchConfig: $searchEngineManager.config)
                     } label: {
                         HStack(spacing: 12) {
-                            SearchEngineLogoView(engine: searchConfig.selectedType, size: 24)
-                            Text(tr("search_engine"))
+                            SearchEngineLogoView(engine: searchEngineManager.config.selectedType, size: 24)
+                            Text(String(localized: "search_engine", bundle: .main))
                             Spacer()
-                            Text(searchConfig.selectedType.rawValue)
+                            Text(searchEngineManager.config.selectedType.rawValue)
                                 .foregroundColor(.secondary)
                         }
                     }
                 }
                 
                 // Appearance & Theme
-                Section(tr("appearance")) {
-                    Picker(tr("theme_mode"), selection: $themeManager.themeMode) {
-                        Text(tr("theme_automatic")).tag(AppThemeMode.automatic)
-                        Text(tr("theme_light")).tag(AppThemeMode.light)
-                        Text(tr("theme_dark")).tag(AppThemeMode.dark)
+                Section(String(localized: "appearance", bundle: .main)) {
+                    Picker(String(localized: "theme_mode", bundle: .main), selection: $themeManager.themeMode) {
+                        Text(String(localized: "theme_automatic", bundle: .main)).tag(AppThemeMode.automatic)
+                        Text(String(localized: "theme_light", bundle: .main)).tag(AppThemeMode.light)
+                        Text(String(localized: "theme_dark", bundle: .main)).tag(AppThemeMode.dark)
                     }
                     .pickerStyle(.segmented)
                     .padding(.vertical, 4)
@@ -85,24 +90,78 @@ public struct SettingsView: View {
                     } label: {
                         HStack {
                             ZenLogoView(size: 24, showBackground: true, backgroundColor: themeManager.accentColor)
-                            Text(tr("app_icon"))
+                            Text(String(localized: "app_icon", bundle: .main))
                             Spacer()
-                            Text("Personnaliser")
+                            Text(String(localized: "customize", bundle: .main))
                                 .foregroundColor(.secondary)
                         }
                     }
                 }
                 
+                // Synchronization & Zen Desktop Pairing
+                Section(String(localized: "sync", bundle: .main)) {
+                    NavigationLink {
+                        FirefoxSyncView()
+                    } label: {
+                        HStack(spacing: 12) {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 7, style: .continuous)
+                                    .fill(Color.orange)
+                                    .frame(width: 28, height: 28)
+                                Image(systemName: "arrow.triangle.2.circlepath")
+                                    .font(.system(size: 13, weight: .bold))
+                                    .foregroundColor(.white)
+                            }
+                            
+                            Text(String(localized: "firefox_sync", bundle: .main))
+                                .font(.body)
+                                .foregroundColor(.primary)
+                            
+                            Spacer()
+                            
+                            if syncService.isConnected {
+                                Text(syncService.userEmail ?? String(localized: "connected", bundle: .main))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                                    .lineLimit(1)
+                            } else {
+                                Text(String(localized: "not_connected", bundle: .main))
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                    }
+                }
+                
                 // Tabs & Auto-Archiving (Arc-like)
-                Section(header: Text("Gestion des onglets"), footer: Text("Les onglets inactifs non épinglés sont archivés sans aucune IA pour préserver la mémoire et l'autonomie.")) {
-                    Picker(tr("auto_archive_delay"), selection: $autoArchivePolicy) {
+                Section(
+                    header: Text(String(localized: "tabs_management", bundle: .main)),
+                    footer: Text(String(localized: "ai_auto_rename_pinned_tabs_footer", bundle: .main))
+                ) {
+                    Picker(String(localized: "auto_archive_delay", bundle: .main), selection: $autoArchivePolicy) {
                         ForEach(AutoArchivePolicy.allCases) { policy in
-                            Text(policy.rawValue).tag(policy)
+                            Text(policy.localizedTitle).tag(policy)
                         }
                     }
                     .pickerStyle(.menu)
                     .onChange(of: autoArchivePolicy) { _, newValue in
                         tabManager.performAutoArchiveCheck(policy: newValue)
+                    }
+                    
+                    Toggle(String(localized: "ai_auto_rename_pinned_tabs", bundle: .main), isOn: $aiAutoRenamePinnedTabs)
+                        .tint(themeManager.accentColor)
+                    
+                    NavigationLink {
+                        AirTrafficControlView()
+                    } label: {
+                        HStack {
+                            Image(systemName: "airplane")
+                                .foregroundColor(themeManager.accentColor)
+                            Text(String(localized: "air_traffic_control", bundle: .main))
+                            Spacer()
+                            Text(AirTrafficControlService.shared.rules.isEmpty ? String(localized: "default_rule_option", bundle: .main) : String(format: String(localized: "rules_count_format", bundle: .main), AirTrafficControlService.shared.rules.count))
+                                .foregroundColor(.secondary)
+                        }
                     }
                     
                     NavigationLink {
@@ -111,7 +170,7 @@ public struct SettingsView: View {
                         HStack {
                             Image(systemName: "archivebox")
                                 .foregroundColor(.secondary)
-                            Text(tr("archived_tabs"))
+                            Text(String(localized: "archived_tabs", bundle: .main))
                             Spacer()
                             Text("\(tabManager.archivedTabs.count)")
                                 .font(.caption.bold())
@@ -121,18 +180,20 @@ public struct SettingsView: View {
                 }
                 
                 // Content Blocker (Zen Shield)
-                Section(tr("content_blocking")) {
-                    Toggle(tr("block_ads"), isOn: $blockAds)
+                Section(String(localized: "content_blocking", bundle: .main)) {
+                    Toggle(String(localized: "block_ads", bundle: .main), isOn: $blockAds)
                         .tint(themeManager.accentColor)
-                    Toggle(tr("block_trackers"), isOn: $blockTrackers)
+                    Toggle(String(localized: "block_trackers", bundle: .main), isOn: $blockTrackers)
                         .tint(themeManager.accentColor)
-                    Toggle(tr("block_cookie_banners"), isOn: $blockCookies)
+                    Toggle(String(localized: "block_cookie_banners", bundle: .main), isOn: $blockCookies)
+                        .tint(themeManager.accentColor)
+                    Toggle(String(localized: "strip_url_trackers", bundle: .main), isOn: $adBlockService.stripTrackingParameters)
                         .tint(themeManager.accentColor)
                 }
                 
                 // Language
-                Section(tr("language")) {
-                    Picker(tr("language"), selection: $locManager.currentLanguage) {
+                Section(String(localized: "language", bundle: .main)) {
+                    Picker(String(localized: "language", bundle: .main), selection: $locManager.currentLanguage) {
                         ForEach(AppLanguage.allCases) { lang in
                             Text(lang.displayName).tag(lang)
                         }
@@ -141,28 +202,33 @@ public struct SettingsView: View {
                 }
                 
                 // Web Experience
-                Section("Navigation") {
-                    Toggle("Toujours demander la version ordinateur", isOn: $desktopByDefault)
+                Section(String(localized: "navigation_section", bundle: .main)) {
+                    Toggle(String(localized: "always_request_desktop", bundle: .main), isOn: $desktopByDefault)
                         .tint(themeManager.accentColor)
                 }
                 
                 // Translation
-                Section(header: Text(tr("translation_settings_section")), footer: Text(tr("translation_settings_footer"))) {
-                    Toggle(tr("translation_settings_toggle"), isOn: $alwaysAllowTranslation)
-                        .tint(themeManager.accentColor)
-                        .onChange(of: alwaysAllowTranslation) { _, newValue in
-                            TranslationService.shared.alwaysAllowTranslation = newValue
+                Section {
+                    Picker(String(localized: "translation_settings_toggle", bundle: .main), selection: $translationService.provider) {
+                        ForEach(TranslationProvider.allCases) { provider in
+                            Text(provider.localizedTitle).tag(provider)
                         }
+                    }
+                    .tint(themeManager.accentColor)
+                } header: {
+                    Text(String(localized: "translation_settings_section", bundle: .main))
                 }
+                .listRowBackground(isTranslationHighlighted ? Color.gray.opacity(0.35) : nil)
+                .id("translation_settings_section_id")
                 
                 // Continuity & Handoff
-                Section(header: Text(tr("handoff_title")), footer: Text(tr("handoff_desc"))) {
-                    Toggle("Activer Handoff avec Zen macOS", isOn: $handoffService.isHandoffEnabled)
+                Section(header: Text(String(localized: "handoff_title", bundle: .main))) {
+                    Toggle(String(localized: "handoff_title", bundle: .main), isOn: $handoffService.isHandoffEnabled)
                         .tint(themeManager.accentColor)
                 }
                 
                 // About
-                Section(tr("about_zen")) {
+                Section(String(localized: "about_zen", bundle: .main)) {
                     HStack(spacing: 14) {
                         ZenLogoView(size: 40, showBackground: true, backgroundColor: themeManager.accentColor)
                         VStack(alignment: .leading, spacing: 2) {
@@ -177,7 +243,7 @@ public struct SettingsView: View {
                     
                     Link(destination: URL(string: "https://zen-browser.app")!) {
                         HStack {
-                            Text("Site officiel Zen Browser")
+                            Text(String(localized: "zen_official_website", bundle: .main))
                             Spacer()
                             Image(systemName: "arrow.up.right")
                                 .font(.caption)
@@ -186,7 +252,7 @@ public struct SettingsView: View {
                     
                     Link(destination: URL(string: "https://github.com/zen-browser")!) {
                         HStack {
-                            Text("Zen Browser sur GitHub")
+                            Text(String(localized: "zen_github", bundle: .main))
                             Spacer()
                             Image(systemName: "arrow.up.right")
                                 .font(.caption)
@@ -195,8 +261,28 @@ public struct SettingsView: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle(tr("settings"))
+            .environment(\.locale, locManager.locale)
+            .navigationTitle(String(localized: "settings", bundle: .main))
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                if highlightTranslationSetting {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            isTranslationHighlighted = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+                            withAnimation(.easeInOut(duration: 0.8)) {
+                                isTranslationHighlighted = false
+                            }
+                        }
+                    }
+                }
+            }
+            .alert(String(localized: "translation_settings_section", bundle: .main), isPresented: $showingTranslationPrivacyAlert) {
+                Button(String(localized: "ok", bundle: .main), role: .cancel) {}
+            } message: {
+                Text(String(localized: "translation_settings_footer", bundle: .main))
+            }
     }
     
     private func openDefaultBrowserSettings() {

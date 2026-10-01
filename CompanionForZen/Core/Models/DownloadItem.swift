@@ -1,6 +1,6 @@
 import Foundation
 
-public enum DownloadState: String, Codable {
+public enum DownloadState: String, Codable, Hashable {
     case pending
     case downloading
     case completed
@@ -9,7 +9,7 @@ public enum DownloadState: String, Codable {
 }
 
 /// Downloaded or active download task item.
-public struct DownloadItem: Identifiable, Codable, Equatable {
+public struct DownloadItem: Identifiable, Codable, Equatable, Hashable {
     public let id: UUID
     public let originalURL: URL
     public var destinationFileURL: URL?

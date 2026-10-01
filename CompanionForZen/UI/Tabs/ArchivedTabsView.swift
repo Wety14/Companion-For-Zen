@@ -6,6 +6,7 @@ public struct ArchivedTabsView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var tabManager = TabManager.shared
     @ObservedObject var themeManager = ZenThemeManager.shared
+    @ObservedObject var locManager = LocalizationManager.shared
     
     @State private var searchText: String = ""
     @State private var showingClearConfirmation: Bool = false
@@ -19,10 +20,10 @@ public struct ArchivedTabsView: View {
                             .font(.system(size: 48))
                             .foregroundColor(.secondary.opacity(0.6))
                         
-                        Text(searchText.isEmpty ? "Aucun onglet archivé" : "Aucun résultat trouvé")
+                        Text(searchText.isEmpty ? String(localized: "no_archived_tabs", bundle: .main) : String(localized: "no_results_found", bundle: .main))
                             .font(.headline)
                         
-                        Text("Les onglets inactifs sont automatiquement rangés ici pour garder votre espace propre et zen.")
+                        Text(String(localized: "archive_empty_desc", bundle: .main))
                             .font(.subheadline)
                             .foregroundColor(.secondary)
                             .multilineTextAlignment(.center)
@@ -45,7 +46,7 @@ public struct ArchivedTabsView: View {
                                             .foregroundColor(.secondary)
                                         
                                         if let archivedDate = tab.archivedAt {
-                                            Text("•")
+                                            Text("bullet_separator")
                                                 .font(.caption)
                                                 .foregroundColor(.secondary)
                                             Text(archivedDate, style: .date)
@@ -62,7 +63,7 @@ public struct ArchivedTabsView: View {
                                     tabManager.restoreArchivedTab(tab)
                                     dismiss()
                                 }) {
-                                    Text(tr("restore_tab"))
+                                    Text(String(localized: "restore_tab", bundle: .main))
                                         .font(.caption.bold())
                                         .foregroundColor(themeManager.accentColor)
                                         .padding(.horizontal, 10)
@@ -76,7 +77,7 @@ public struct ArchivedTabsView: View {
                                 Button(role: .destructive) {
                                     tabManager.deleteArchivedTab(tab)
                                 } label: {
-                                    Label(tr("delete_tab"), systemImage: "trash")
+                                    Label(String(localized: "delete_tab", bundle: .main), systemImage: "trash")
                                 }
                             }
                         }
@@ -84,16 +85,16 @@ public struct ArchivedTabsView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .searchable(text: $searchText, prompt: "Rechercher dans les archives...")
-            .navigationTitle(tr("archived_tabs"))
+            .searchable(text: $searchText, prompt: String(localized: "search_archive_prompt", bundle: .main))
+            .navigationTitle(String(localized: "archived_tabs", bundle: .main))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Fermer") { dismiss() }
+                    Button(String(localized: "close", bundle: .main)) { dismiss() }
                 }
                 if !tabManager.archivedTabs.isEmpty {
                     ToolbarItem(placement: .destructiveAction) {
-                        Button(tr("clear_all")) {
+                        Button(String(localized: "clear_all", bundle: .main)) {
                             showingClearConfirmation = true
                         }
                         .foregroundColor(.red)
@@ -101,14 +102,14 @@ public struct ArchivedTabsView: View {
                 }
             }
             .confirmationDialog(
-                "Supprimer tous les onglets archivés ?",
+                String(localized: "delete_all_archived_confirmation", bundle: .main),
                 isPresented: $showingClearConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Tout effacer", role: .destructive) {
+                Button(String(localized: "clear_all", bundle: .main), role: .destructive) {
                     tabManager.clearAllArchivedTabs()
                 }
-                Button("Annuler", role: .cancel) {}
+                Button(String(localized: "cancel", bundle: .main), role: .cancel) {}
             }
         }
     }

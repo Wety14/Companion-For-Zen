@@ -3,11 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* AppIconManager.swift */; };
 		070A12758D0345BD8CD1A4B6 /* ZenTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D5FC1567024B6497CADB90 /* ZenTheme.swift */; };
 		0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BC7D46EAD440DA23490A8 /* DownloadService.swift */; };
 		10ABFE7595724FFC931F29F4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CED939C4405891D21C64 /* HistoryView.swift */; };
@@ -23,15 +22,25 @@
 		6202CB3B24BD4CED8F09FAA5 /* DownloadItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAACC3BF5E8464D85A4BD7F /* DownloadItem.swift */; };
 		6FF4BDE5FD324EC1AA86622E /* ReaderModeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33351818D988495986C9CB87 /* ReaderModeService.swift */; };
 		7612697AE7A440C3B0C8A01D /* SpaceSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2761AE6308148E480D01A20 /* SpaceSelectorView.swift */; };
+		7612697AE7A440C3B0C8A099 /* SpaceThemePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2761AE6308148E480D01A99 /* SpaceThemePicker.swift */; };
 		78281FB6621C4B03814112E3 /* ZenLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF70249273264FBC809F57EF /* ZenLogoView.swift */; };
 		7864D335DD9E4128BE3E9AC9 /* TabCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228B58D1ED514A03995E8352 /* TabCardView.swift */; };
 		7D51C73022984F3DB377FADB /* AdBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57B1D71A54B459C87C4A24D /* AdBlockService.swift */; };
 		7F99A92E42954386AEB460FB /* TranslationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0C046618641579CAFCC2A /* TranslationService.swift */; };
 		8822E08B4C12449A86F38E98 /* TabDrawerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEECB76617F4895A3E8DB31 /* TabDrawerView.swift */; };
+		8822E08B4C12449A86F38F01 /* TabSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2761AE6308148E480D01B01 /* TabSwitcherView.swift */; };
+		8822E08B4C12449A86F38F02 /* PinTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2761AE6308148E480D01B02 /* PinTabView.swift */; };
 		9A5B233712344D479A7B94D6 /* LiquidGlassModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C0E63B9B2445F3B00B5F79 /* LiquidGlassModifier.swift */; };
 		9EFA8A5F68604CE78C591A51 /* TabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */; };
 		A0C8D597F81B4123AE31A00D /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44782C4029E4BDC81363FB8 /* AppLanguage.swift */; };
+		A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* AppIconManager.swift */; };
+		A1B2C3D4E5F60101 /* TabSnapshotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60102 /* TabSnapshotManager.swift */; };
+		A70001002900000100000001 /* AirTrafficControlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70001002900000100000002 /* AirTrafficControlService.swift */; };
+		A70002002900000100000001 /* AirTrafficControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70002002900000100000002 /* AirTrafficControlView.swift */; };
+		A70003002900000100000001 /* TabFaviconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70003002900000100000002 /* TabFaviconView.swift */; };
+		A70004002900000100000001 /* SpaceEditorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70004002900000100000002 /* SpaceEditorSheet.swift */; };
 		ADF297E1E3804E1EBBF0795E /* SearchOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F035A2425FC04B9C9F5E8308 /* SearchOverlayView.swift */; };
+		B1C2D3E4F5A60001 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		B35AF55C64444C17A1CC0D4A /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CA0B47E5394ABD9328FC81 /* SearchEngine.swift */; };
 		B69A259540F448D18387417F /* DownloadsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB392E8F306F4566A284A2BC /* DownloadsView.swift */; };
 		BC35B6D1F9DC4C2795E88189 /* BrowserContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD0A0967E2D41B58B5536DE /* BrowserContainerView.swift */; };
@@ -39,18 +48,56 @@
 		C3B6BBB4DC4143DD9EC5CCA9 /* Space.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7190F48FEA4E1A80FA8596 /* Space.swift */; };
 		C5382F62A33A47149B57F502 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1D8DD3E388042A28E5173C3 /* AppTheme.swift */; };
 		C633DD526C1141DB8C9CE269 /* HandoffService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAD032923254C32BCCDE10A /* HandoffService.swift */; };
+		CE0D987D3068780B00D5505F /* QRCodeScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D987C3068780B00D5505F /* QRCodeScannerView.swift */; };
+		CE0D988B3069668400D5505F /* CoralIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988A3069668400D5505F /* CoralIcon.icon */; };
+		CE0D988C3069668400D5505F /* CoralIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988A3069668400D5505F /* CoralIcon.icon */; };
+		CE0D98903069669C00D5505F /* DarkIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988D3069669C00D5505F /* DarkIcon.icon */; };
+		CE0D98913069669C00D5505F /* TwilightIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988F3069669C00D5505F /* TwilightIcon.icon */; };
+		CE0D98923069669C00D5505F /* RetroIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988E3069669C00D5505F /* RetroIcon.icon */; };
+		CE0D98933069669C00D5505F /* DarkIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988D3069669C00D5505F /* DarkIcon.icon */; };
+		CE0D98943069669C00D5505F /* TwilightIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988F3069669C00D5505F /* TwilightIcon.icon */; };
+		CE0D98953069669C00D5505F /* RetroIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = CE0D988E3069669C00D5505F /* RetroIcon.icon */; };
+		CE0D98A33069802A00D5505F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CE0D98A23069802A00D5505F /* Localizable.xcstrings */; };
+		CE0D98A43069802A00D5505F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CE0D98A23069802A00D5505F /* Localizable.xcstrings */; };
+		CE0D98A63069A60900D5505F /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CE0D98A53069A60900D5505F /* InfoPlist.xcstrings */; };
 		CE5C5F95306560C40035FB50 /* SearchSuggestionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */; };
+		CE8B6F8930664AE1006B14C4 /* ShareExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = CE8B6F7F30664AE1006B14C4 /* ShareExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CEA8CCFC306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8CCFB306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift */; };
 		CFC7D1807F92477B924F0030 /* SearchEnginePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E584AA23460447B6996513FE /* SearchEnginePickerView.swift */; };
 		D2D447B09E3F4345A4742FA7 /* IconPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9325214C2DEE4DC6A5C9AD29 /* IconPickerView.swift */; };
 		E5ADEE797BDE47619A51F2A3 /* FirefoxSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */; };
 		E716FDB530774D0EAD9914A9 /* HistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5A0ACAFA64F46E3A5593947 /* HistoryEntry.swift */; };
 		F1ABBC34C5704FAA8C1581D2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6234C732C4C045CEBB175608 /* SettingsView.swift */; };
 		FBAF7F3F1A284F13812B7BFC /* BottomOmnibarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E189F54C394DF38153B129 /* BottomOmnibarView.swift */; };
+		FBAF7F3F1A284F13812B7BFD /* EmptyTabsZenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35E189F54C394DF38153B12A /* EmptyTabsZenView.swift */; };
 		FF17AA5B47854C3799172962 /* ReaderModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		CE8B6F8730664AE1006B14C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 33E5779186534A7DA23D4EB5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CE8B6F7E30664AE1006B14C4;
+			remoteInfo = ShareExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CE8B6F8A30664AE1006B14C4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CE8B6F8930664AE1006B14C4 /* ShareExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		A1B2C3D4E5F60002 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
 		00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderModeView.swift; sourceTree = "<group>"; };
 		0570A7386072424DAFA049C0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabManager.swift; sourceTree = "<group>"; };
@@ -63,6 +110,7 @@
 		228B58D1ED514A03995E8352 /* TabCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabCardView.swift; sourceTree = "<group>"; };
 		33351818D988495986C9CB87 /* ReaderModeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReaderModeService.swift; sourceTree = "<group>"; };
 		35E189F54C394DF38153B129 /* BottomOmnibarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOmnibarView.swift; sourceTree = "<group>"; };
+		35E189F54C394DF38153B12A /* EmptyTabsZenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTabsZenView.swift; sourceTree = "<group>"; };
 		3EEECB76617F4895A3E8DB31 /* TabDrawerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDrawerView.swift; sourceTree = "<group>"; };
 		4320325A898F4382915BDFE4 /* CompanionForZenApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionForZenApp.swift; sourceTree = "<group>"; };
 		49AD21224A164C41B63ED57F /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
@@ -72,6 +120,12 @@
 		9325214C2DEE4DC6A5C9AD29 /* IconPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconPickerView.swift; sourceTree = "<group>"; };
 		9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
 		9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefoxSyncView.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60002 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F60102 /* TabSnapshotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSnapshotManager.swift; sourceTree = "<group>"; };
+		A70001002900000100000002 /* AirTrafficControlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControlService.swift; sourceTree = "<group>"; };
+		A70002002900000100000002 /* AirTrafficControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControlView.swift; sourceTree = "<group>"; };
+		A70003002900000100000002 /* TabFaviconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabFaviconView.swift; sourceTree = "<group>"; };
+		A70004002900000100000002 /* SpaceEditorSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceEditorSheet.swift; sourceTree = "<group>"; };
 		A97BC7D46EAD440DA23490A8 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		AF80B10D77004FD0AF5FB95F /* Zen-Color-Twilight.svg */ = {isa = PBXFileReference; lastKnownFileType = image.svg; path = "Zen-Color-Twilight.svg"; sourceTree = "<group>"; };
 		B5D1CED939C4405891D21C64 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
@@ -80,7 +134,17 @@
 		C44782C4029E4BDC81363FB8 /* AppLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLanguage.swift; sourceTree = "<group>"; };
 		CCD0A0967E2D41B58B5536DE /* BrowserContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserContainerView.swift; sourceTree = "<group>"; };
 		CCED9C9B251B4DA0B620397C /* WebToolsOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebToolsOverlayView.swift; sourceTree = "<group>"; };
+		CE0D987C3068780B00D5505F /* QRCodeScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeScannerView.swift; sourceTree = "<group>"; };
+		CE0D988A3069668400D5505F /* CoralIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = CoralIcon.icon; sourceTree = "<group>"; };
+		CE0D988D3069669C00D5505F /* DarkIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = DarkIcon.icon; sourceTree = "<group>"; };
+		CE0D988E3069669C00D5505F /* RetroIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = RetroIcon.icon; sourceTree = "<group>"; };
+		CE0D988F3069669C00D5505F /* TwilightIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = TwilightIcon.icon; sourceTree = "<group>"; };
+		CE0D98A23069802A00D5505F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		CE0D98A53069A60900D5505F /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionService.swift; sourceTree = "<group>"; };
+		CE8B6F7F30664AE1006B14C4 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8B6F8F30664B13006B14C4 /* CompanionForZen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CompanionForZen.entitlements; sourceTree = "<group>"; };
+		CEA8CCFB306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift */ = {isa = PBXFileReference; path = PinnedTabTitleSummarizer.swift; sourceTree = "<group>"; };
 		D57B1D71A54B459C87C4A24D /* AdBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBlockService.swift; sourceTree = "<group>"; };
 		D5A0ACAFA64F46E3A5593947 /* HistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntry.swift; sourceTree = "<group>"; };
 		D8F0C046618641579CAFCC2A /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
@@ -93,9 +157,36 @@
 		F035A2425FC04B9C9F5E8308 /* SearchOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOverlayView.swift; sourceTree = "<group>"; };
 		F1D8DD3E388042A28E5173C3 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		F2761AE6308148E480D01A20 /* SpaceSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSelectorView.swift; sourceTree = "<group>"; };
+		F2761AE6308148E480D01A99 /* SpaceThemePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceThemePicker.swift; sourceTree = "<group>"; };
+		F2761AE6308148E480D01B01 /* TabSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSwitcherView.swift; sourceTree = "<group>"; };
+		F2761AE6308148E480D01B02 /* PinTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinTabView.swift; sourceTree = "<group>"; };
 		F74D48A60E3B47288443107E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE77B7E0B37342A8A0495F5C /* CompanionForZen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CompanionForZen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE8B6F8D30664AE1006B14C4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = CE8B6F7E30664AE1006B14C4 /* ShareExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE8B6F8030664AE1006B14C4 /* ShareExtension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (CE8B6F8D30664AE1006B14C4 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = ShareExtension; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CE8B6F7C30664AE1006B14C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		0B3741FA58DC493D92A52818 /* App */ = {
@@ -124,6 +215,7 @@
 		2E543848C8D04CF08E2D64E2 /* Localization */ = {
 			isa = PBXGroup;
 			children = (
+				CE0D98A23069802A00D5505F /* Localizable.xcstrings */,
 				C44782C4029E4BDC81363FB8 /* AppLanguage.swift */,
 			);
 			path = Localization;
@@ -141,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */,
+				CE0D987C3068780B00D5505F /* QRCodeScannerView.swift */,
 			);
 			path = Sync;
 			sourceTree = "<group>";
@@ -148,6 +241,7 @@
 		5214D9E2A90E45B8985901E5 /* CompanionForZen */ = {
 			isa = PBXGroup;
 			children = (
+				CE8B6F8F30664B13006B14C4 /* CompanionForZen.entitlements */,
 				0B3741FA58DC493D92A52818 /* App */,
 				B35135EF33E44F7283D09AFC /* Assets */,
 				633605E6530042C7A96C438D /* Core */,
@@ -181,8 +275,13 @@
 			children = (
 				8C7051AE609F462899623CFF /* ArchivedTabsView.swift */,
 				F2761AE6308148E480D01A20 /* SpaceSelectorView.swift */,
+				A70004002900000100000002 /* SpaceEditorSheet.swift */,
+				F2761AE6308148E480D01A99 /* SpaceThemePicker.swift */,
 				228B58D1ED514A03995E8352 /* TabCardView.swift */,
+				A70003002900000100000002 /* TabFaviconView.swift */,
 				3EEECB76617F4895A3E8DB31 /* TabDrawerView.swift */,
+				F2761AE6308148E480D01B01 /* TabSwitcherView.swift */,
+				F2761AE6308148E480D01B02 /* PinTabView.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -191,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				9325214C2DEE4DC6A5C9AD29 /* IconPickerView.swift */,
+				A70002002900000100000002 /* AirTrafficControlView.swift */,
 				E584AA23460447B6996513FE /* SearchEnginePickerView.swift */,
 				6234C732C4C045CEBB175608 /* SettingsView.swift */,
 			);
@@ -200,6 +300,7 @@
 		B35135EF33E44F7283D09AFC /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				CE0D98A53069A60900D5505F /* InfoPlist.xcstrings */,
 				F74D48A60E3B47288443107E /* Assets.xcassets */,
 				F8DD33546A1649DDAB4E2FEC /* ZenLogos */,
 			);
@@ -233,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				5214D9E2A90E45B8985901E5 /* CompanionForZen */,
+				CE8B6F8030664AE1006B14C4 /* ShareExtension */,
 				D4EEBB57F7974E84806CA701 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -249,6 +351,7 @@
 			isa = PBXGroup;
 			children = (
 				FE77B7E0B37342A8A0495F5C /* CompanionForZen.app */,
+				CE8B6F7F30664AE1006B14C4 /* ShareExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -256,6 +359,7 @@
 		E671E3B5469F4400AA5BC9B3 /* Browser */ = {
 			isa = PBXGroup;
 			children = (
+				35E189F54C394DF38153B12A /* EmptyTabsZenView.swift */,
 				35E189F54C394DF38153B129 /* BottomOmnibarView.swift */,
 				CCD0A0967E2D41B58B5536DE /* BrowserContainerView.swift */,
 				00E1F5FF3C174F0CB649E11B /* ReaderModeView.swift */,
@@ -269,7 +373,7 @@
 			isa = PBXGroup;
 			children = (
 				D57B1D71A54B459C87C4A24D /* AdBlockService.swift */,
-								A1B2C3D4E5F60002 /* AppIconManager.swift */,
+				A1B2C3D4E5F60002 /* AppIconManager.swift */,
 				A97BC7D46EAD440DA23490A8 /* DownloadService.swift */,
 				B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */,
 				0FAD032923254C32BCCDE10A /* HandoffService.swift */,
@@ -277,8 +381,11 @@
 				33351818D988495986C9CB87 /* ReaderModeService.swift */,
 				0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */,
 				D8F0C046618641579CAFCC2A /* TranslationService.swift */,
+				A70001002900000100000002 /* AirTrafficControlService.swift */,
 				9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */,
 				CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */,
+				A1B2C3D4E5F60102 /* TabSnapshotManager.swift */,
+				CEA8CCFB306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -286,6 +393,10 @@
 		F8DD33546A1649DDAB4E2FEC /* ZenLogos */ = {
 			isa = PBXGroup;
 			children = (
+				CE0D988D3069669C00D5505F /* DarkIcon.icon */,
+				CE0D988E3069669C00D5505F /* RetroIcon.icon */,
+				CE0D988F3069669C00D5505F /* TwilightIcon.icon */,
+				CE0D988A3069668400D5505F /* CoralIcon.icon */,
 				124743E05EEE4273961E3991 /* Zen-Color-Coral.svg */,
 				DFDDCF4F78C64B13B6741D40 /* Zen-Color-Dark.svg */,
 				AF80B10D77004FD0AF5FB95F /* Zen-Color-Twilight.svg */,
@@ -296,16 +407,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CE8B6F7E30664AE1006B14C4 /* ShareExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CE8B6F8E30664AE1006B14C4 /* Build configuration list for PBXNativeTarget "ShareExtension" */;
+			buildPhases = (
+				CE8B6F7B30664AE1006B14C4 /* Sources */,
+				CE8B6F7C30664AE1006B14C4 /* Frameworks */,
+				CE8B6F7D30664AE1006B14C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CE8B6F8030664AE1006B14C4 /* ShareExtension */,
+			);
+			name = ShareExtension;
+			packageProductDependencies = (
+			);
+			productName = ShareExtension;
+			productReference = CE8B6F7F30664AE1006B14C4 /* ShareExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		ED2F8891308F4EE6B4C7E1AB /* CompanionForZen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F442D6B190814E0DB3AC9630 /* Build configuration list for PBXNativeTarget "CompanionForZen" */;
 			buildPhases = (
 				A4BCFF03113240EE9D3C31A8 /* Sources */,
 				583B92C0E6454A9BA7E0C572 /* Resources */,
+				CE8B6F8A30664AE1006B14C4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CE8B6F8830664AE1006B14C4 /* PBXTargetDependency */,
 			);
 			name = CompanionForZen;
 			productName = CompanionForZen;
@@ -319,8 +454,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2720;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					CE8B6F7E30664AE1006B14C4 = {
+						CreatedOnToolsVersion = 27.2;
+					};
 					ED2F8891308F4EE6B4C7E1AB = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -333,6 +472,33 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				es,
+				de,
+				ar,
+				bg,
+				cs,
+				da,
+				el,
+				"en-GB",
+				fa,
+				fi,
+				he,
+				hu,
+				is,
+				it,
+				nb,
+				nl,
+				nn,
+				pl,
+				"pt-BR",
+				"pt-PT",
+				ro,
+				ru,
+				sk,
+				sv,
+				tr,
+				uk,
 			);
 			mainGroup = CF33B269321048448B337474;
 			productRefGroup = D4EEBB57F7974E84806CA701 /* Products */;
@@ -340,6 +506,7 @@
 			projectRoot = "";
 			targets = (
 				ED2F8891308F4EE6B4C7E1AB /* CompanionForZen */,
+				CE8B6F7E30664AE1006B14C4 /* ShareExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -350,6 +517,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C3151E508A45B3AAB72A16 /* Assets.xcassets in Resources */,
+				CE0D988B3069668400D5505F /* CoralIcon.icon in Resources */,
+				CE0D98903069669C00D5505F /* DarkIcon.icon in Resources */,
+				CE0D98913069669C00D5505F /* TwilightIcon.icon in Resources */,
+				CE0D98923069669C00D5505F /* RetroIcon.icon in Resources */,
+				CE0D98A33069802A00D5505F /* Localizable.xcstrings in Resources */,
+				CE0D98A63069A60900D5505F /* InfoPlist.xcstrings in Resources */,
+				B1C2D3E4F5A60001 /* (null) in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B6F7D30664AE1006B14C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CE0D988C3069668400D5505F /* CoralIcon.icon in Resources */,
+				CE0D98A43069802A00D5505F /* Localizable.xcstrings in Resources */,
+				CE0D98933069669C00D5505F /* DarkIcon.icon in Resources */,
+				CE0D98943069669C00D5505F /* TwilightIcon.icon in Resources */,
+				CE0D98953069669C00D5505F /* RetroIcon.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,23 +550,28 @@
 				A0C8D597F81B4123AE31A00D /* AppLanguage.swift in Sources */,
 				55CB0C6D177046049FD6EC82 /* AppSettings.swift in Sources */,
 				CE5C5F95306560C40035FB50 /* SearchSuggestionService.swift in Sources */,
+				A1B2C3D4E5F60101 /* TabSnapshotManager.swift in Sources */,
+				CE0D987D3068780B00D5505F /* QRCodeScannerView.swift in Sources */,
 				C5382F62A33A47149B57F502 /* AppTheme.swift in Sources */,
 				6202CB3B24BD4CED8F09FAA5 /* DownloadItem.swift in Sources */,
 				E716FDB530774D0EAD9914A9 /* HistoryEntry.swift in Sources */,
 				B35AF55C64444C17A1CC0D4A /* SearchEngine.swift in Sources */,
 				C3B6BBB4DC4143DD9EC5CCA9 /* Space.swift in Sources */,
 				3980204B5A504EB493291688 /* Tab.swift in Sources */,
-								A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */,
+				A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */,
 				7D51C73022984F3DB377FADB /* AdBlockService.swift in Sources */,
 				0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */,
 				28EF8A277D9F4D67A55D7112 /* FirefoxSyncService.swift in Sources */,
 				C633DD526C1141DB8C9CE269 /* HandoffService.swift in Sources */,
 				50DD6DD7882643AC95C8482B /* HistoryService.swift in Sources */,
 				6FF4BDE5FD324EC1AA86622E /* ReaderModeService.swift in Sources */,
+				CEA8CCFC306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift in Sources */,
 				9EFA8A5F68604CE78C591A51 /* TabManager.swift in Sources */,
 				7F99A92E42954386AEB460FB /* TranslationService.swift in Sources */,
+				A70001002900000100000001 /* AirTrafficControlService.swift in Sources */,
 				49B3C204C5B1418B8280B4DD /* WebViewContainer.swift in Sources */,
 				424E163DA5ED408A95188353 /* BookmarksView.swift in Sources */,
+				FBAF7F3F1A284F13812B7BFD /* EmptyTabsZenView.swift in Sources */,
 				FBAF7F3F1A284F13812B7BFC /* BottomOmnibarView.swift in Sources */,
 				BC35B6D1F9DC4C2795E88189 /* BrowserContainerView.swift in Sources */,
 				FF17AA5B47854C3799172962 /* ReaderModeView.swift in Sources */,
@@ -392,17 +583,38 @@
 				B69A259540F448D18387417F /* DownloadsView.swift in Sources */,
 				10ABFE7595724FFC931F29F4 /* HistoryView.swift in Sources */,
 				D2D447B09E3F4345A4742FA7 /* IconPickerView.swift in Sources */,
+				A70002002900000100000001 /* AirTrafficControlView.swift in Sources */,
 				CFC7D1807F92477B924F0030 /* SearchEnginePickerView.swift in Sources */,
 				F1ABBC34C5704FAA8C1581D2 /* SettingsView.swift in Sources */,
 				E5ADEE797BDE47619A51F2A3 /* FirefoxSyncView.swift in Sources */,
 				3A83F9C8139647AB82BFA857 /* ArchivedTabsView.swift in Sources */,
 				7612697AE7A440C3B0C8A01D /* SpaceSelectorView.swift in Sources */,
+				7612697AE7A440C3B0C8A099 /* SpaceThemePicker.swift in Sources */,
 				7864D335DD9E4128BE3E9AC9 /* TabCardView.swift in Sources */,
+				A70003002900000100000001 /* TabFaviconView.swift in Sources */,
+				A70004002900000100000001 /* SpaceEditorSheet.swift in Sources */,
 				8822E08B4C12449A86F38E98 /* TabDrawerView.swift in Sources */,
+				8822E08B4C12449A86F38F01 /* TabSwitcherView.swift in Sources */,
+				8822E08B4C12449A86F38F02 /* PinTabView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE8B6F7B30664AE1006B14C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CE8B6F8830664AE1006B14C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CE8B6F7E30664AE1006B14C4 /* ShareExtension */;
+			targetProxy = CE8B6F8730664AE1006B14C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2CFD157955564882BB4206D6 /* Debug */ = {
@@ -436,8 +648,10 @@
 		3DE9D7DCBEF84EB5AA792D1F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = CoralIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = CompanionForZen/CompanionForZen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -450,8 +664,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.zenbrowser.companion;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.zen-browser.companion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -461,8 +676,10 @@
 		55A9AC1DBCE44B88A1882604 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = CoralIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = CompanionForZen/CompanionForZen.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
@@ -475,8 +692,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.zenbrowser.companion;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.zen-browser.companion";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -505,6 +723,139 @@
 			};
 			name = Release;
 		};
+		CE8B6F8B30664AE1006B14C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GN2JPP97NM;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Zen;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.zen-browser.companion.ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CE8B6F8C30664AE1006B14C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ShareExtension/ShareExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = GN2JPP97NM;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ShareExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Zen;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "app.zen-browser.companion.ShareExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -513,6 +864,15 @@
 			buildConfigurations = (
 				2CFD157955564882BB4206D6 /* Debug */,
 				A57ACE7164C74BCBA2719FA9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CE8B6F8E30664AE1006B14C4 /* Build configuration list for PBXNativeTarget "ShareExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CE8B6F8B30664AE1006B14C4 /* Debug */,
+				CE8B6F8C30664AE1006B14C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

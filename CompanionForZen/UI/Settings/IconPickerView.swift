@@ -4,6 +4,7 @@ import SwiftUI
 public struct IconPickerView: View {
     @ObservedObject var themeManager = ZenThemeManager.shared
     @ObservedObject var iconManager = AppIconManager.shared
+    @ObservedObject var locManager = LocalizationManager.shared
     
     private let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -29,7 +30,7 @@ public struct IconPickerView: View {
                     .padding(.top, 8)
                     
                     VStack(spacing: 2) {
-                        Text("Zen Browser")
+                        Text("zen_browser")
                             .font(.system(size: 13, weight: .medium))
                             .foregroundColor(.primary)
                         
@@ -48,7 +49,7 @@ public struct IconPickerView: View {
                 
                 // 2x2 Grid of the official icons
                 VStack(alignment: .leading, spacing: 14) {
-                    Text("Icônes disponibles")
+                    Text(String(localized: "available_icons", bundle: .main))
                         .font(.headline)
                         .foregroundColor(.primary)
                         .padding(.horizontal, 20)
@@ -60,31 +61,12 @@ public struct IconPickerView: View {
                     }
                     .padding(.horizontal, 16)
                 }
-                
-                // Explanatory Footer Card
-                HStack(spacing: 12) {
-                    Image(systemName: "sparkles")
-                        .font(.title3)
-                        .foregroundColor(themeManager.accentColor)
-                    
-                    Text("L'icône de l'application sur votre écran d'accueil iOS change instantanément dès la sélection.")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .padding(16)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .background(
-                    RoundedRectangle(cornerRadius: 16, style: .continuous)
-                        .fill(Color(uiColor: .secondarySystemGroupedBackground))
-                )
-                .padding(.horizontal, 16)
                 .padding(.bottom, 24)
             }
             .padding(.top, 16)
         }
         .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
-        .navigationTitle(tr("app_icon"))
+        .navigationTitle(String(localized: "app_icon", bundle: .main))
         .navigationBarTitleDisplayMode(.inline)
     }
     

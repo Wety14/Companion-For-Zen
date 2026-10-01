@@ -23,7 +23,7 @@ public struct ReaderModeView: View {
                             }) {
                                 HStack(spacing: 6) {
                                     Image(systemName: "chevron.left")
-                                    Text("Quitter le mode lecture")
+                                    Text("exit_reader_mode")
                                 }
                                 .font(.subheadline.bold())
                                 .foregroundColor(currentAccentColor)
@@ -37,25 +37,25 @@ public struct ReaderModeView: View {
                             
                             // Reader Controls Menu
                             Menu {
-                                Section("Thème") {
+                                Section(String(localized: "theme_section", bundle: .main)) {
                                     ForEach(ReaderTheme.allCases) { theme in
                                         Button(theme.rawValue) {
                                             selectedTheme = theme
                                         }
                                     }
                                 }
-                                Section("Police") {
+                                Section(String(localized: "font", bundle: .main)) {
                                     ForEach(ReaderFont.allCases) { font in
                                         Button(font.rawValue) {
                                             selectedFont = font
                                         }
                                     }
                                 }
-                                Section("Taille de texte") {
-                                    Button("Agrandir (+)") {
+                                Section(String(localized: "text_size", bundle: .main)) {
+                                    Button(String(localized: "increase_text_size", bundle: .main)) {
                                         fontSize = min(28, fontSize + 2)
                                     }
-                                    Button("Réduire (-)") {
+                                    Button(String(localized: "decrease_text_size", bundle: .main)) {
                                         fontSize = max(14, fontSize - 2)
                                     }
                                 }
@@ -97,7 +97,7 @@ public struct ReaderModeView: View {
             } else {
                 VStack(spacing: 16) {
                     ProgressView()
-                    Text("Extraction du contenu en cours...")
+                    Text("extracting_content")
                         .font(.subheadline)
                         .foregroundColor(currentTextColor.opacity(0.7))
                 }

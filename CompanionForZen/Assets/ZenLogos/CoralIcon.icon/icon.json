@@ -9,10 +9,30 @@
     {
       "layers" : [
         {
+          "blend-mode-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : "normal"
+            }
+          ],
+          "fill-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : "automatic"
+            }
+          ],
+          "glass" : true,
+          "hidden" : false,
           "image-name" : "zen logo blanc.png",
           "name" : "zen logo blanc",
+          "opacity-specializations" : [
+            {
+              "appearance" : "tinted",
+              "value" : 1
+            }
+          ],
           "position" : {
-            "scale" : 0.85,
+            "scale" : 0.84,
             "translation-in-points" : [
               0,
               0

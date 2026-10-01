@@ -5,6 +5,7 @@ public struct HistoryView: View {
     @Environment(\.dismiss) private var dismiss
     @ObservedObject var historyService = HistoryService.shared
     @ObservedObject var themeManager = ZenThemeManager.shared
+    @ObservedObject var locManager = LocalizationManager.shared
     
     @State private var searchText: String = ""
     @State private var showingClearConfirmation: Bool = false
@@ -19,7 +20,7 @@ public struct HistoryView: View {
                             .font(.system(size: 48))
                             .foregroundColor(.secondary.opacity(0.6))
                         
-                        Text(tr("no_history"))
+                        Text(String(localized: "no_history", bundle: .main))
                             .font(.headline)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -55,7 +56,7 @@ public struct HistoryView: View {
                                 Button(role: .destructive) {
                                     historyService.deleteEntry(entry)
                                 } label: {
-                                    Label(tr("delete_tab"), systemImage: "trash")
+                                    Label(String(localized: "delete_tab", bundle: .main), systemImage: "trash")
                                 }
                             }
                         }
@@ -63,13 +64,13 @@ public struct HistoryView: View {
                     .listStyle(.insetGrouped)
                 }
             }
-            .searchable(text: $searchText, prompt: "Rechercher dans l'historique...")
-            .navigationTitle(tr("history"))
+            .searchable(text: $searchText, prompt: String(localized: "search_history_prompt", bundle: .main))
+            .navigationTitle(String(localized: "history", bundle: .main))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 if !historyService.historyEntries.isEmpty {
                     ToolbarItem(placement: .destructiveAction) {
-                        Button(tr("clear_history")) {
+                        Button(String(localized: "clear_history", bundle: .main)) {
                             showingClearConfirmation = true
                         }
                         .foregroundColor(.red)
@@ -77,14 +78,14 @@ public struct HistoryView: View {
                 }
             }
             .confirmationDialog(
-                "Effacer tout l'historique de navigation ?",
+                String(localized: "clear_history_confirmation", bundle: .main),
                 isPresented: $showingClearConfirmation,
                 titleVisibility: .visible
             ) {
-                Button("Tout effacer", role: .destructive) {
+                Button(String(localized: "clear_all", bundle: .main), role: .destructive) {
                     historyService.clearAll()
                 }
-                Button("Annuler", role: .cancel) {}
+                Button(String(localized: "cancel", bundle: .main), role: .cancel) {}
             }
     }
     
