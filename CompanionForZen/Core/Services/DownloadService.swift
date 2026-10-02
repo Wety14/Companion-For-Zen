@@ -74,10 +74,52 @@ public final class DownloadService: NSObject, ObservableObject, URLSessionDownlo
         }
     }
     
+    /// Sanitizes an untrusted filename to prevent Path Traversal and illegal characters
+    public func sanitizeFilename(_ raw: String) -> String {
+        // Strip directory path sequences (e.g. ../../)
+        var clean = (raw as NSString).lastPathComponent
+        // Replace directory separators and forbidden filesystem characters
+        clean = clean.replacingOccurrences(of: "/", with: "_")
+                     .replacingOccurrences(of: "\\", with: "_")
+                     .replacingOccurrences(of: ":", with: "_")
+                     .trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if clean.isEmpty || clean == "." || clean == ".." {
+            return "download_\(Int(Date().timeIntervalSince1970))"
+        }
+        return clean
+    }
+    
+    /// Generates a safe, non-colliding destination file URL in the Zen Browser download directory
+    private func uniqueDestinationURL(for filename: String) -> (destination: URL, safeName: String) {
+        let sanitized = sanitizeFilename(filename)
+        let ext = (sanitized as NSString).pathExtension
+        let base = (sanitized as NSString).deletingPathExtension
+        
+        var safeName = sanitized
+        var candidate = downloadsDirectory.appendingPathComponent(safeName)
+        var counter = 1
+        
+        while FileManager.default.fileExists(atPath: candidate.path) {
+            safeName = ext.isEmpty ? "\(base) (\(counter))" : "\(base) (\(counter)).\(ext)"
+            candidate = downloadsDirectory.appendingPathComponent(safeName)
+            counter += 1
+        }
+        
+        // Ensure destination remains strictly confined within the downloads directory
+        let allowedRoot = downloadsDirectory.standardizedFileURL.path
+        if !candidate.standardizedFileURL.path.hasPrefix(allowedRoot) {
+            let fallbackName = "download_\(Int(Date().timeIntervalSince1970))"
+            return (downloadsDirectory.appendingPathComponent(fallbackName), fallbackName)
+        }
+        
+        return (candidate, safeName)
+    }
+
     /// Requests download confirmation from the user via dialog before starting.
     public func requestDownload(url: URL, suggestedFilename: String? = nil) {
-        let filename = suggestedFilename ?? url.lastPathComponent
-        let safeFilename = filename.isEmpty ? "download_\(Int(Date().timeIntervalSince1970))" : filename
+        let rawName = suggestedFilename ?? url.lastPathComponent
+        let safeFilename = sanitizeFilename(rawName)
         DispatchQueue.main.async {
             self.pendingDownload = PendingDownload(url: url, filename: safeFilename)
         }
@@ -107,9 +149,8 @@ public final class DownloadService: NSObject, ObservableObject, URLSessionDownlo
     
     /// Starts downloading the file and monitors progress.
     public func startDownload(url: URL, suggestedFilename: String? = nil) {
-        let filename = suggestedFilename ?? url.lastPathComponent
-        let safeFilename = filename.isEmpty ? "download_\(Int(Date().timeIntervalSince1970))" : filename
-        let destination = downloadsDirectory.appendingPathComponent(safeFilename)
+        let rawName = suggestedFilename ?? url.lastPathComponent
+        let (destination, safeFilename) = uniqueDestinationURL(for: rawName)
         
         let item = DownloadItem(
             originalURL: url,
@@ -154,21 +195,21 @@ public final class DownloadService: NSObject, ObservableObject, URLSessionDownlo
         guard let itemId = activeTasks[downloadTask.taskIdentifier],
               let idx = downloads.firstIndex(where: { $0.id == itemId }) else { return }
         
-        let destination = downloads[idx].destinationFileURL ?? downloadsDirectory.appendingPathComponent(downloads[idx].filename)
+        let preferredName = downloads[idx].filename
+        let (finalDestination, finalName) = uniqueDestinationURL(for: preferredName)
+        
         do {
-            if FileManager.default.fileExists(atPath: destination.path) {
-                try FileManager.default.removeItem(at: destination)
-            }
-            try FileManager.default.moveItem(at: location, to: destination)
+            try FileManager.default.moveItem(at: location, to: finalDestination)
             
-            let attrs = try FileManager.default.attributesOfItem(atPath: destination.path)
+            let attrs = try FileManager.default.attributesOfItem(atPath: finalDestination.path)
             let size = attrs[.size] as? Int64 ?? downloads[idx].receivedBytes
             
             downloads[idx].state = .completed
             downloads[idx].completedAt = Date()
             downloads[idx].totalBytes = size
             downloads[idx].receivedBytes = size
-            downloads[idx].destinationFileURL = destination
+            downloads[idx].destinationFileURL = finalDestination
+            downloads[idx].filename = finalName
             
             let finishedItem = downloads[idx]
             DispatchQueue.main.async { [weak self] in

@@ -579,7 +579,7 @@ public final class TabManager: ObservableObject {
     
     public func selectTab(_ tab: Tab) {
         activeTabId = tab.id
-        if tab.spaceId != activeSpaceId {
+        if tab.isPinned && tab.spaceId != activeSpaceId {
             activeSpaceId = tab.spaceId
             defaults.set(tab.spaceId.uuidString, forKey: activeSpaceKey)
             UserDefaults.standard.set(tab.spaceId.uuidString, forKey: activeSpaceKey)
@@ -635,6 +635,7 @@ public final class TabManager: ObservableObject {
     public func closeTab(id: UUID) {
         guard let idx = tabs.firstIndex(where: { $0.id == id }) else { return }
         let closedTab = tabs.remove(at: idx)
+        TabWebViewManager.shared.removeWebView(for: id)
         
         if activeTabId == id {
             if closedTab.isPrivate {
@@ -658,6 +659,10 @@ public final class TabManager: ObservableObject {
     
     public func closeAllTabsInActiveSpace() {
         let spaceId = activeSpaceId
+        let tabsToRemove = tabs.filter { $0.spaceId == spaceId && !$0.isPinned }
+        for t in tabsToRemove {
+            TabWebViewManager.shared.removeWebView(for: t.id)
+        }
         tabs.removeAll(where: { $0.spaceId == spaceId && !$0.isPinned })
         let remaining = activeTabs(for: spaceId)
         if let first = remaining.first {

@@ -96,7 +96,7 @@ public struct BrowserContainerView: View {
                 let safeTrailing = (!isTabsOverview && isLandscape) ? geo.safeAreaInsets.trailing : 0
                 
                 ZStack(alignment: .topLeading) {
-                    if let activeTab = tabManager.activeTab {
+                    if let activeTab = tabManager.activeTab, !isTabsOverview {
                         WebViewContainer(
                             tab: activeTab,
                             canGoBack: $canGoBack,
@@ -208,11 +208,9 @@ public struct BrowserContainerView: View {
                         showingSearchOverlay = true
                     },
                     onOpenTabDrawer: {
-                        NotificationCenter.default.post(name: Notification.Name("CaptureCurrentTabSnapshot"), object: nil)
                         showingTabDrawer = true
                     },
                     onOpenTabSwitcher: {
-                        NotificationCenter.default.post(name: Notification.Name("CaptureCurrentTabSnapshot"), object: nil)
                         withAnimation(.spring(response: 0.38, dampingFraction: 0.82)) {
                             isTabsOverview = true
                         }
@@ -401,14 +399,16 @@ public struct BrowserContainerView: View {
             handoffService.broadcastTab(
                 url: newURL,
                 title: pageTitle,
-                spaceName: tabManager.activeSpace.name
+                spaceName: tabManager.activeSpace.name,
+                isPrivate: tabManager.activeTab?.isPrivate ?? false
             )
         }
         .onChange(of: pageTitle) { _, newTitle in
             handoffService.broadcastTab(
                 url: currentURL,
                 title: newTitle,
-                spaceName: tabManager.activeSpace.name
+                spaceName: tabManager.activeSpace.name,
+                isPrivate: tabManager.activeTab?.isPrivate ?? false
             )
         }
         .onChange(of: findInPageText) { _, newText in

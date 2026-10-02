@@ -1,6 +1,5 @@
 {
   "sourceLanguage" : "en",
-  "version": 1,
   "strings" : {
     "CFBundleDisplayName" : {
       "comment" : "Bundle display name",
@@ -28,12 +27,173 @@
     },
     "NSCameraUsageDescription" : {
       "comment" : "Privacy - Camera Usage Description",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يستخدم Zen Browser الكاميرا لمسح رمز الاستجابة السريعة (QR) للإقران مع Zen Desktop."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser използва камерата за сканиране на QR кода за сдвояване със Zen Desktop."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser používá fotoaparát ke skenování QR kódu pro spárování se Zen Desktop."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser bruger kameraet til at scanne QR-koden for at parre med Zen Desktop."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser verwendet die Kamera, um den QR-Code für die Kopplung mit Zen Desktop zu scannen."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Το Zen Browser χρησιμοποιεί την κάμερα για τη σάρωση του κωδικού QR σύνδεσης με το Zen Desktop."
+          }
+        },
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
+            "value" : "Zen Browser uses the camera to scan the QR code to pair with Zen Desktop."
+          }
+        },
+        "en-GB" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser uses the camera to scan the QR code to pair with Zen Desktop."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser utiliza la cámara para escanear el código QR de vinculación con Zen Desktop."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مرورگر Zen برای اسکن کد QR جهت اتصال به Zen Desktop از دوربین استفاده می‌کند."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser käyttää kameraa QR-koodin skannaamiseen yhdistämiseksi Zen Desktopiin."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Zen Browser utilise l'appareil photo pour scanner le code QR d'association avec Zen Desktop."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser משתמש במצלמה כדי לסרוק את קוד ה-QR לשיוך עם Zen Desktop."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A Zen Browser a kamerát használja a Zen Desktoppal való párosításhoz szükséges QR-kód beolvasásához."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser notar myndavélina til að skanna QR-kóðann til að tengjast Zen Desktop."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser usa la fotocamera per scansionare il codice QR di associazione con Zen Desktop."
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser bruker kameraet til å skanne QR-koden for å koble til Zen Desktop."
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser gebruikt de camera om de QR-code te scannen voor koppeling met Zen Desktop."
+          }
+        },
+        "nn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser brukar kameraet til å skanne QR-koden for å kople til Zen Desktop."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser używa aparatu do skanowania kodu QR, aby połączyć się z Zen Desktop."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Zen Browser usa a câmera para ler o código QR de emparelhamento com o Zen Desktop."
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "O Zen Browser utiliza a câmara para ler o QR code de emparelhamento com o Zen Desktop."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser folosește camera pentru a scana codul QR de asociere cu Zen Desktop."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser использует камеру для сканирования QR-кода связывания с Zen Desktop."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser používa fotoaparát na skenovanie QR kódu na spárovanie so Zen Desktop."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser använder kameran för att skanna QR-koden för att parkoppla med Zen Desktop."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser, Zen Desktop ile eşleşmek için QR kodunu taramak üzere kamerayı kullanır."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zen Browser використовує камеру для сканування QR-коду зв'язування з Zen Desktop."
           }
         }
       }

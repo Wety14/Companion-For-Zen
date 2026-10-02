@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		070A12758D0345BD8CD1A4B6 /* ZenTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21D5FC1567024B6497CADB90 /* ZenTheme.swift */; };
 		0EEF7FEC727742478C92C17E /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BC7D46EAD440DA23490A8 /* DownloadService.swift */; };
+		A70005002900000100000001 /* TabWebViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70005002900000100000002 /* TabWebViewManager.swift */; };
 		10ABFE7595724FFC931F29F4 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D1CED939C4405891D21C64 /* HistoryView.swift */; };
 		28EF8A277D9F4D67A55D7112 /* FirefoxSyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */; };
 		2C8CC842A7654EB99C133074 /* CompanionForZenApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4320325A898F4382915BDFE4 /* CompanionForZenApp.swift */; };
@@ -34,7 +35,6 @@
 		9EFA8A5F68604CE78C591A51 /* TabManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D0A6E9ABB994CD9BF587DB8 /* TabManager.swift */; };
 		A0C8D597F81B4123AE31A00D /* AppLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44782C4029E4BDC81363FB8 /* AppLanguage.swift */; };
 		A1B2C3D4E5F60001 /* AppIconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60002 /* AppIconManager.swift */; };
-		A1B2C3D4E5F60101 /* TabSnapshotManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60102 /* TabSnapshotManager.swift */; };
 		A70001002900000100000001 /* AirTrafficControlService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70001002900000100000002 /* AirTrafficControlService.swift */; };
 		A70002002900000100000001 /* AirTrafficControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70002002900000100000002 /* AirTrafficControlView.swift */; };
 		A70003002900000100000001 /* TabFaviconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70003002900000100000002 /* TabFaviconView.swift */; };
@@ -121,12 +121,12 @@
 		9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewContainer.swift; sourceTree = "<group>"; };
 		9FEDA3CAF65E47AE8ED73D4E /* FirefoxSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefoxSyncView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F60002 /* AppIconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIconManager.swift; sourceTree = "<group>"; };
-		A1B2C3D4E5F60102 /* TabSnapshotManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSnapshotManager.swift; sourceTree = "<group>"; };
 		A70001002900000100000002 /* AirTrafficControlService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControlService.swift; sourceTree = "<group>"; };
 		A70002002900000100000002 /* AirTrafficControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirTrafficControlView.swift; sourceTree = "<group>"; };
 		A70003002900000100000002 /* TabFaviconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabFaviconView.swift; sourceTree = "<group>"; };
 		A70004002900000100000002 /* SpaceEditorSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceEditorSheet.swift; sourceTree = "<group>"; };
 		A97BC7D46EAD440DA23490A8 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
+		A70005002900000100000002 /* TabWebViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabWebViewManager.swift; sourceTree = "<group>"; };
 		AF80B10D77004FD0AF5FB95F /* Zen-Color-Twilight.svg */ = {isa = PBXFileReference; lastKnownFileType = image.svg; path = "Zen-Color-Twilight.svg"; sourceTree = "<group>"; };
 		B5D1CED939C4405891D21C64 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		B766B1A1F6B64603AE223C33 /* FirefoxSyncService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirefoxSyncService.swift; sourceTree = "<group>"; };
@@ -144,7 +144,7 @@
 		CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSuggestionService.swift; sourceTree = "<group>"; };
 		CE8B6F7F30664AE1006B14C4 /* ShareExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ShareExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE8B6F8F30664B13006B14C4 /* CompanionForZen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CompanionForZen.entitlements; sourceTree = "<group>"; };
-		CEA8CCFB306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift */ = {isa = PBXFileReference; path = PinnedTabTitleSummarizer.swift; sourceTree = "<group>"; };
+		CEA8CCFB306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinnedTabTitleSummarizer.swift; sourceTree = "<group>"; };
 		D57B1D71A54B459C87C4A24D /* AdBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdBlockService.swift; sourceTree = "<group>"; };
 		D5A0ACAFA64F46E3A5593947 /* HistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntry.swift; sourceTree = "<group>"; };
 		D8F0C046618641579CAFCC2A /* TranslationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationService.swift; sourceTree = "<group>"; };
@@ -383,8 +383,8 @@
 				D8F0C046618641579CAFCC2A /* TranslationService.swift */,
 				A70001002900000100000002 /* AirTrafficControlService.swift */,
 				9AE0B576702A4259BB7A0834 /* WebViewContainer.swift */,
+				A70005002900000100000002 /* TabWebViewManager.swift */,
 				CE5C5F94306560C40035FB50 /* SearchSuggestionService.swift */,
-				A1B2C3D4E5F60102 /* TabSnapshotManager.swift */,
 				CEA8CCFB306D0FEB009996D9 /* PinnedTabTitleSummarizer.swift */,
 			);
 			path = Services;
@@ -550,7 +550,6 @@
 				A0C8D597F81B4123AE31A00D /* AppLanguage.swift in Sources */,
 				55CB0C6D177046049FD6EC82 /* AppSettings.swift in Sources */,
 				CE5C5F95306560C40035FB50 /* SearchSuggestionService.swift in Sources */,
-				A1B2C3D4E5F60101 /* TabSnapshotManager.swift in Sources */,
 				CE0D987D3068780B00D5505F /* QRCodeScannerView.swift in Sources */,
 				C5382F62A33A47149B57F502 /* AppTheme.swift in Sources */,
 				6202CB3B24BD4CED8F09FAA5 /* DownloadItem.swift in Sources */,
@@ -570,6 +569,7 @@
 				7F99A92E42954386AEB460FB /* TranslationService.swift in Sources */,
 				A70001002900000100000001 /* AirTrafficControlService.swift in Sources */,
 				49B3C204C5B1418B8280B4DD /* WebViewContainer.swift in Sources */,
+				A70005002900000100000001 /* TabWebViewManager.swift in Sources */,
 				424E163DA5ED408A95188353 /* BookmarksView.swift in Sources */,
 				FBAF7F3F1A284F13812B7BFD /* EmptyTabsZenView.swift in Sources */,
 				FBAF7F3F1A284F13812B7BFC /* BottomOmnibarView.swift in Sources */,

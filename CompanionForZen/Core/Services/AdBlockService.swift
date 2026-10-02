@@ -95,8 +95,25 @@ public final class AdBlockService: ObservableObject {
         }
     }
     
-    /// Compile native WebKit rules
-    public func compileRules(completion: (() -> Void)? = nil) {
+    /// Compile or load cached native WebKit rules
+    public func compileRules(forceRecompile: Bool = false, completion: (() -> Void)? = nil) {
+        if !forceRecompile {
+            WKContentRuleListStore.default().lookUpContentRuleList(forIdentifier: "CompanionZenRules") { [weak self] existingList, error in
+                if let existingList = existingList {
+                    DispatchQueue.main.async {
+                        self?.contentRuleList = existingList
+                        completion?()
+                    }
+                    return
+                }
+                self?.performRuleCompilation(completion: completion)
+            }
+        } else {
+            performRuleCompilation(completion: completion)
+        }
+    }
+    
+    private func performRuleCompilation(completion: (() -> Void)? = nil) {
         let blockedPatterns = [
             "doubleclick\\.net",
             "googlesyndication\\.com",
@@ -154,7 +171,9 @@ public final class AdBlockService: ObservableObject {
             if let error = error {
                 print("Failed to compile WKContentRuleList: \(error)")
             } else if let ruleList = ruleList {
-                self?.contentRuleList = ruleList
+                DispatchQueue.main.async {
+                    self?.contentRuleList = ruleList
+                }
             }
             completion?()
         }

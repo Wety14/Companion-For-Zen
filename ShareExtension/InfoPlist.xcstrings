@@ -1,6 +1,5 @@
 {
   "sourceLanguage" : "en",
-  "version": 1,
   "strings" : {
     "CFBundleDisplayName" : {
       "comment" : "Bundle display name",

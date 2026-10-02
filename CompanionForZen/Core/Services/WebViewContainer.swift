@@ -61,22 +61,10 @@ public struct WebViewContainer: UIViewRepresentable {
     }
     
     public func makeUIView(context: Context) -> WKWebView {
-        let configuration = WKWebViewConfiguration()
-        configuration.allowsInlineMediaPlayback = true
-        configuration.defaultWebpagePreferences.allowsContentJavaScript = true
-        
-        // Request desktop or mobile content mode
-        configuration.defaultWebpagePreferences.preferredContentMode = isDesktopMode ? .desktop : .mobile
-        
-        // Private / Incognito browsing: use non-persistent website data store (no cookies/cache saved to disk)
-        if tab.isPrivate {
-            configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
-        }
-        
-        // Apply Ad, Tracker, and Cookie Banner blocking
-        adBlockService.applyTo(configuration: configuration, url: tab.url)
-        
-        let webView = WKWebView(frame: .zero, configuration: configuration)
+        let webView = TabWebViewManager.shared.webView(for: tab)
+        webView.removeFromSuperview()
+        webView.isUserInteractionEnabled = true
+        webView.scrollView.isScrollEnabled = true
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
         webView.scrollView.delegate = context.coordinator
@@ -86,10 +74,14 @@ public struct WebViewContainer: UIViewRepresentable {
         webView.scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
         
         // Pull-to-refresh: Swiping down refreshes the current web page
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefresh(_:)), for: .valueChanged)
-        webView.scrollView.refreshControl = refreshControl
-        context.coordinator.refreshControl = refreshControl
+        if webView.scrollView.refreshControl == nil {
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(context.coordinator, action: #selector(Coordinator.handleRefresh(_:)), for: .valueChanged)
+            webView.scrollView.refreshControl = refreshControl
+            context.coordinator.refreshControl = refreshControl
+        } else {
+            context.coordinator.refreshControl = webView.scrollView.refreshControl
+        }
         
         // Set custom user agent for desktop mode if enabled
         if isDesktopMode {
@@ -99,14 +91,26 @@ public struct WebViewContainer: UIViewRepresentable {
         context.coordinator.setupObservers(for: webView)
         context.coordinator.webView = webView
         
-        // Initial load
-        let request = URLRequest(url: tab.url)
-        webView.load(request)
+        if webView.url == nil {
+            let request = URLRequest(url: tab.url)
+            webView.load(request)
+        }
         
         return webView
     }
     
     public func updateUIView(_ webView: WKWebView, context: Context) {
+        if !webView.isUserInteractionEnabled {
+            webView.isUserInteractionEnabled = true
+        }
+        if !webView.scrollView.isScrollEnabled {
+            webView.scrollView.isScrollEnabled = true
+        }
+        if webView.navigationDelegate !== context.coordinator {
+            webView.navigationDelegate = context.coordinator
+            webView.uiDelegate = context.coordinator
+            webView.scrollView.delegate = context.coordinator
+        }
         // Handle triggers
         if let newURL = loadURLTrigger, context.coordinator.lastLoadedURLTrigger != newURL {
             context.coordinator.lastLoadedURLTrigger = newURL
@@ -170,41 +174,17 @@ public struct WebViewContainer: UIViewRepresentable {
         
         private var scrollIdleWorkItem: DispatchWorkItem?
         private var isCurrentlyFastScrolling = false
+        private var lastCrashTime: Date?
+        private var crashRecoveryCount: Int = 0
         
         init(_ parent: WebViewContainer) {
             self.parent = parent
             super.init()
-            NotificationCenter.default.addObserver(
-                self,
-                selector: #selector(handleSnapshotNotification),
-                name: Notification.Name("CaptureCurrentTabSnapshot"),
-                object: nil
-            )
-        }
-        
-        deinit {
-            NotificationCenter.default.removeObserver(self)
-        }
-        
-        @objc private func handleSnapshotNotification() {
-            captureSnapshot()
         }
         
         @objc func handleRefresh(_ sender: UIRefreshControl) {
             Haptics.light()
             webView?.reload()
-        }
-        
-        func captureSnapshot() {
-            guard let webView = self.webView, webView.bounds.width > 0, webView.bounds.height > 0 else { return }
-            let config = WKSnapshotConfiguration()
-            config.afterScreenUpdates = false
-            let tabId = self.parent.tab.id
-            webView.takeSnapshot(with: config) { image, error in
-                if let img = image {
-                    TabSnapshotManager.shared.saveSnapshot(img, for: tabId)
-                }
-            }
         }
         
         func setupObservers(for webView: WKWebView) {
@@ -368,10 +348,6 @@ public struct WebViewContainer: UIViewRepresentable {
                 self.refreshControl?.endRefreshing()
             }
             detectPageLightness(webView)
-            // Capture real content snapshot once page is rendered
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [weak self] in
-                self?.captureSnapshot()
-            }
         }
         
         public func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -402,13 +378,15 @@ public struct WebViewContainer: UIViewRepresentable {
                 return
             }
             
-            // Handle external schemes (e.g. mailto:, tel:, sms:, maps:) safely in main app process
+            // Handle external schemes (e.g. mailto:, tel:, sms:, maps:, app schemes) with user confirmation
             if let url = navigationAction.request.url,
                let scheme = url.scheme?.lowercased(),
                scheme != "http" && scheme != "https" && scheme != "about" && scheme != "blob" && scheme != "data" {
                 if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url)
                     decisionHandler(.cancel)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.promptOpenExternalApp(url: url)
+                    }
                     return
                 }
             }
@@ -417,8 +395,40 @@ public struct WebViewContainer: UIViewRepresentable {
         }
         
         public func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
-            // Automatically recover if WebContent process was terminated by system
-            webView.reload()
+            let now = Date()
+            if let last = lastCrashTime, now.timeIntervalSince(last) < 10 {
+                crashRecoveryCount += 1
+            } else {
+                crashRecoveryCount = 1
+            }
+            lastCrashTime = now
+            
+            // Avoid infinite reload loops if WebContent repeatedly crashes (e.g. OOM or WebKit bug)
+            if crashRecoveryCount <= 1 {
+                webView.reload()
+            }
+        }
+        
+        private func promptOpenExternalApp(url: URL) {
+            guard let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene,
+                  let rootVC = windowScene.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
+                return
+            }
+            
+            var topVC = rootVC
+            while let presented = topVC.presentedViewController {
+                topVC = presented
+            }
+            
+            let title = NSLocalizedString("open_external_app_title", comment: "Prompt title to open external app")
+            let message = NSLocalizedString("open_external_app_message", comment: "Prompt message to open external app")
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: "Cancel action"), style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("open_external_app_action", comment: "Confirm open action"), style: .default, handler: { _ in
+                UIApplication.shared.open(url)
+            }))
+            
+            topVC.present(alert, animated: true)
         }
         
         public func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {

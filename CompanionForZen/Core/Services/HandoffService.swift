@@ -30,8 +30,8 @@ public final class HandoffService: ObservableObject {
     }
     
     /// Broadcast the current tab to nearby Apple devices via Handoff
-    public func broadcastTab(url: URL?, title: String?, spaceName: String? = nil) {
-        guard isHandoffEnabled, let url = url, url.scheme == "http" || url.scheme == "https" else {
+    public func broadcastTab(url: URL?, title: String?, spaceName: String? = nil, isPrivate: Bool = false) {
+        guard isHandoffEnabled, !isPrivate, let url = url, url.scheme == "http" || url.scheme == "https" else {
             invalidateCurrentActivity()
             return
         }
@@ -40,7 +40,7 @@ public final class HandoffService: ObservableObject {
         activity.webpageURL = url
         activity.title = title ?? url.host ?? "Zen Browser"
         activity.isEligibleForHandoff = true
-        activity.isEligibleForSearch = true
+        activity.isEligibleForSearch = !isPrivate
         activity.isEligibleForPublicIndexing = false
         
         var userInfo: [String: Any] = [

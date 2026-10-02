@@ -126,11 +126,11 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Zen Browser utilise l'appareil photo pour scanner le code QR d'association avec Zen Desktop.</string>
+	<string>Zen Browser uses the camera to scan the QR code to pair with Zen Desktop.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>NSUserActivityTypeBrowsingWeb</string>
